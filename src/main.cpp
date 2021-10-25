@@ -19,26 +19,22 @@ int main()
   std::shared_ptr<Config> cfg = std::make_shared<Config>();
   std::shared_ptr<Command> cmd = std::make_shared<Command>(cfg);
 
-  cfg->setUrl("192.168.1.7");
-  cfg->write();
-  cmd->post("192.168.1.7/api","{\"devicetype\":\"my_hue_app#iphone peter\"}");
-  std::cout << cmd->readBuffer << "\n";
-  boost::property_tree::write_json(std::cout, cmd->jsonReadBuffer);
+  // cfg->setUrl("192.168.1.7");
+  // cfg->write();
 
-  cmd->get("https://discovery.meethue.com");
-  std::cout << cmd->readBuffer << "\n";
-  boost::property_tree::write_json(std::cout, cmd->jsonReadBuffer);
+//   if(cmd->connect())
+//   {
+//     std::cout << "Connected\n";
+//   }
+//   else
+//   {
+//     std::cout << "Connection failed\n";
+//   }
 
-  if(cmd->findHubIp())
-  {
-    std::cout << cfg->getInternalIpAddress() << "\n";
-  }
-  else
-  {
-    std::cout << "error retrieving ip\n";
-  }
-  //std::cout << cmd->readBuffer << "\n";
+  cmd->findHubIp();
 
+  cmd->waitForButtonPress();
+  std::cout << "Username: " << cfg->getUsername() << "\n";
 
   return 0;
 }

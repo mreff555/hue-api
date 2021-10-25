@@ -19,6 +19,8 @@ class Command
 
   bool findHubIp();
 
+  bool waitForButtonPress();
+
   bool connect();
 
   // Public things that should probably be private

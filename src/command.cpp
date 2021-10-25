@@ -20,6 +20,8 @@ Command::~Command()
 
 bool Command::unauthorizedResponse()
 {
+  // TODO: This only makes sense when following a statemnt which attempted something requiring elevated
+  // access.  Either the functionality needs to be expanded or it needs to be used differently.
   bool result = false;
   boost::optional<std::string> s = jsonReadBuffer.get_optional<std::string>(".error.description");
   if(s && s.get() == "unauthorized user")
@@ -45,44 +47,54 @@ bool Command::findHubIp()
   return result;
 }
 
-// Attempts to retrieve hub Ip if it is not already known.
-// Tests to see if client can authenticate.  Breaks loop
-// if a username is retrieved;
+bool Command::waitForButtonPress()
+{
+  bool success = false;
+  if(mCfg->getUsername() == "")
+  {
+    std::cout << "Waiting 30 seconds for button press...\n";
+    std::string url = "http://";
+    url += mCfg->getInternalIpAddress();
+    url += "/api";
+  
+    // TODO: This is a temporary copy and paste until I can figure out
+    // more about these device types
+    std::string body = "{\"devicetype\":\"my_hue_app#iphone peter\"}";
+   
+    std::cout << url << "\n" << body << "\n";
+  
+    for(int i = 0; i < 60; ++i)
+    {
+      post(url, body);
+      boost::optional<std::string> username =jsonReadBuffer.get_optional<std::string>(".success.username");
+      if(username)
+      {
+        mCfg->setUsername(username.get());
+        std::cout << "success: " << mCfg->getUsername();
+        success = true;
+        break;
+      }
+      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+  }
+  else // Everything appears to be good
+  {
+    success = true;
+    std::cout << "All good.  Skipping...\n";
+  }
+  if(success)
+  {
+    mCfg->write();
+  }
+  return success;
+}
+
 bool Command::connect()
 {
-  bool foundIp = false;
-  if(unauthorizedResponse())
-  {
-    if(mCfg->getUsername() == "")
-    {
-      foundIp = findHubIp();
-    }
+  bool success = false;
+  
 
-    if(foundIp)
-    {
-      std::cout << "Waiting 30 seconds for button press...\n";
-      std::string url = "http://";
-      url += mCfg->getInternalIpAddress();
-      url += "/api";
-
-      // TODO: This is a temporary copy and paste until I can figure out
-      // more about these device types
-      std::string body = "{\"devicetype\":\"my_hue_app#iphone peter\"}";
-      
-      for(int i = 0; i < 60; ++i)
-      {
-        post(url, body);
-        boost::optional<std::string> username =jsonReadBuffer.get_optional<std::string>("success.username");
-        if(username)
-        {
-          mCfg->setUsername(username.get());
-          break;
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-      }
-    } /* foundIp */
-  } /* if(unauthorizedResponse()) */
-  return !unauthorizedResponse(); // returns 1 if connected;
+  return success;
 }
 
 void Command::post(const std::string url, const std::string body)

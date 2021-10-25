@@ -11,7 +11,7 @@ class Config
   public:
   Config();
 
-  virtual ~Config(){}
+  virtual ~Config();
 
   void read();
   

@@ -8,7 +8,12 @@
 
 Config::Config()
 {
+  this->read();
+}
 
+Config::~Config()
+{
+  this->write();
 }
 
 void Config::read()
@@ -30,6 +35,10 @@ void Config::read(std::string filename)
 
 void Config::write()
 {
+  // TODO: eventually this should probably check a variable
+  // and possibly an environment variable, before using the 
+  // default.  Also, there should be a hard coded skeleton config
+  // in case the default does not exist.
   this->write(DEFAULT_CONFIG_FILE);
 }
 
