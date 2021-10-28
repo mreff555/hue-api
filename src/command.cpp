@@ -11,6 +11,7 @@
 Command::Command(std::shared_ptr<Config> _config) : mCfg(_config) 
 {
   curl_global_init(CURL_GLOBAL_ALL);
+  connect();
 }
 
 Command::~Command()
@@ -35,8 +36,9 @@ bool Command::findHubIp()
   this->get("https://discovery.meethue.com");
   boost::optional<std::string> id = jsonReadBuffer.get_optional<std::string>(".id");
   boost::optional<std::string> s = jsonReadBuffer.get_optional<std::string>(".internalipaddress");
+ 
   if(id)
-   mCfg->setId(id.get());
+    mCfg->setId(id.get());
 
   if(s)
   {
@@ -60,13 +62,10 @@ bool Command::waitForButtonPress()
     // TODO: This is a temporary copy and paste until I can figure out
     // more about these device types
     std::string body = "{\"devicetype\":\"my_hue_app#iphone peter\"}";
-   
-    std::cout << url << "\n" << body << "\n";
-  
     for(int i = 0; i < 60; ++i)
     {
       post(url, body);
-      boost::optional<std::string> username =jsonReadBuffer.get_optional<std::string>(".success.username");
+      boost::optional<std::string> username = jsonReadBuffer.get_optional<std::string>(".success.username");
       if(username)
       {
         mCfg->setUsername(username.get());
@@ -80,7 +79,6 @@ bool Command::waitForButtonPress()
   else // Everything appears to be good
   {
     success = true;
-    std::cout << "All good.  Skipping...\n";
   }
   if(success)
   {
@@ -92,10 +90,58 @@ bool Command::waitForButtonPress()
 bool Command::connect()
 {
   bool success = false;
-  
-
+  if(mCfg->getInternalIpAddress() == "" || mCfg->getUsername() == "")
+  {
+    success = findHubIp();
+  }
+  else
+  {
+    success = true;
+  }
+  if(success)
+  {
+    if(mCfg->getUsername() == "")
+    {
+      success = waitForButtonPress();
+    }
+    if(success && !unauthorizedResponse())
+    {
+      success = true;
+    }
+  } 
+  else
+  {
+    success = false;
+    std::cout << "Unable to locate hub\n";
+  }
   return success;
 }
+
+// I don't really know what I am going to do with this yet,
+// but I THINK it's a logical next step.  The output vector
+// is a list of numbers representing active devices.
+// Maybe this should be a map, and maybe it should point
+// to something useful.  Maybe it shouldn't be in this class
+// all things to contemplate. 
+std::vector<unsigned short> Command::getDeviceVector()
+{
+  std::vector<unsigned short> vec;
+  std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getUsername() + "/lights";
+  get(url);
+  std::string str;
+  for(int i = 0; i < 51; ++i)
+  {
+    str.clear();
+    str = std::to_string(i) + ".state.reachable";
+    boost::optional<bool> reachable = jsonReadBuffer.get_optional<bool>(str);
+    if(reachable)
+    {
+      vec.push_back(i);
+      std::cout << i << "\n";
+    }
+  }
+}
+
 
 void Command::post(const std::string url, const std::string body)
 {

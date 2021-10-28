@@ -23,6 +23,8 @@ class Command
 
   bool connect();
 
+std::vector<unsigned short> getDeviceVector();
+
   // Public things that should probably be private
   //
   void post(const std::string, const std::string);

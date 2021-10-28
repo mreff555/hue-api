@@ -19,22 +19,9 @@ int main()
   std::shared_ptr<Config> cfg = std::make_shared<Config>();
   std::shared_ptr<Command> cmd = std::make_shared<Command>(cfg);
 
-  // cfg->setUrl("192.168.1.7");
-  // cfg->write();
+  cmd->getDeviceVector();
 
-//   if(cmd->connect())
-//   {
-//     std::cout << "Connected\n";
-//   }
-//   else
-//   {
-//     std::cout << "Connection failed\n";
-//   }
-
-  cmd->findHubIp();
-
-  cmd->waitForButtonPress();
-  std::cout << "Username: " << cfg->getUsername() << "\n";
 
   return 0;
 }
+

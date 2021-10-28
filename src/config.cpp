@@ -3,6 +3,7 @@
 #include <sys/time.h>
 #include <iostream>
 #include <cstdint>
+#include <vector>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
@@ -24,13 +25,21 @@ void Config::read()
 void Config::read(std::string filename)
 {
   boost::property_tree::ptree root;
-  boost::property_tree::read_json(filename, root);
-  this->id = root.get<std::string>("id");
-  this->internalIpAddress = root.get<std::string>("internalipaddress");
-  this->username = root.get<std::string>("username");
-  this->password = root.get<std::string>("password");
-  this->url = root.get<std::string>("url");
-  this->timestamp = root.get<uint64_t>("timestamp");
+  try
+  {
+    boost::property_tree::read_json(filename, root);
+    this->id = root.get<std::string>("id");
+    this->internalIpAddress = root.get<std::string>("internalipaddress");
+    this->username = root.get<std::string>("username");
+    this->password = root.get<std::string>("password");
+    this->url = root.get<std::string>("url");
+    this->timestamp = root.get<uint64_t>("timestamp");
+  }
+  catch(std::exception &e)
+  {
+    std::cout << "No Config file found.\n";
+  }
+
 }
 
 void Config::write()
