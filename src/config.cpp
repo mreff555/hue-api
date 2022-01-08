@@ -21,7 +21,11 @@ void Config::read()
 {
   this->read(DEFAULT_CONFIG_FILE);
 }
-
+/*
+* @brief read the specified JSON file and attempt to populate relavant field.
+* @param JSON config file
+* @return N/A
+*/
 void Config::read(std::string filename)
 {
   boost::property_tree::ptree root;
@@ -39,9 +43,13 @@ void Config::read(std::string filename)
   {
     std::cout << "No Config file found.\n";
   }
-
 }
 
+/*
+* @brief Write to the specified config file.
+* @param JSON config file
+* @return N/A
+*/
 void Config::write()
 {
   // TODO: eventually this should probably check a variable

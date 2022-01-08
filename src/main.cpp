@@ -19,7 +19,8 @@ int main()
   std::shared_ptr<Config> cfg = std::make_shared<Config>();
   std::shared_ptr<Command> cmd = std::make_shared<Command>(cfg);
 
-  cmd->getDeviceVector();
+  // cmd->getDeviceVector();
+  std::cout << cmd->getDeviceData(6);
 
 
   return 0;

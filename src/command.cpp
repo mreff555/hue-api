@@ -7,6 +7,9 @@
 #include <chrono>
 #include <sstream>
 #include <iostream>
+#include <fcntl.h>
+#include <ios>
+#include <sstream>
 
 Command::Command(std::shared_ptr<Config> _config) : mCfg(_config) 
 {
@@ -55,12 +58,11 @@ bool Command::waitForButtonPress()
   if(mCfg->getUsername() == "")
   {
     std::cout << "Waiting 30 seconds for button press...\n";
-    std::string url = "http://";
-    url += mCfg->getInternalIpAddress();
-    url += "/api";
+    std::string url = "http://" + mCfg->getInternalIpAddress() + "/api";
   
-    // TODO: This is a temporary copy and paste until I can figure out
-    // more about these device types
+    // TODO: This is a temporary copy and paste until I can figure out more about these device types
+    // The way I understand it now, this should be some type of UUID.  It's value is probably a seed
+    // for the generated username when you press the id. 
     std::string body = "{\"devicetype\":\"my_hue_app#iphone peter\"}";
     for(int i = 0; i < 60; ++i)
     {
@@ -121,15 +123,15 @@ bool Command::connect()
 // but I THINK it's a logical next step.  The output vector
 // is a list of numbers representing active devices.
 // Maybe this should be a map, and maybe it should point
-// to something useful.  Maybe it shouldn't be in this class
-// all things to contemplate. 
+// to something useful.  Maybe it shouldn't be in this class.
+// All things to contemplate. 
 std::vector<unsigned short> Command::getDeviceVector()
 {
   std::vector<unsigned short> vec;
   std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getUsername() + "/lights";
   get(url);
   std::string str;
-  for(int i = 0; i < 51; ++i)
+  for(int i = 0; i < 32; ++i)
   {
     str.clear();
     str = std::to_string(i) + ".state.reachable";
@@ -140,6 +142,13 @@ std::vector<unsigned short> Command::getDeviceVector()
       std::cout << i << "\n";
     }
   }
+}
+
+std::string Command::getDeviceData(const unsigned int id)
+{
+  std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getUsername() + "/lights/" + std::to_string(id);
+  get(url);
+  return readBuffer;
 }
 
 
@@ -190,10 +199,55 @@ void Command::get(const std::string url)
   }
 }
 
-void Command::put(const std::string){}
+void Command::put(const std::string url, const std::string body)
+{
+  curl = curl_easy_init();
+  if(curl)
+  {
+    std::stringstream ss;
+    ss << body;
+    ss.seekg(0, std::ios::end);
+    int size = ss.tellg();
+
+    // this->readBuffer.clear();
+    // curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
+    // curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+    // curl_easy_setopt(curl, CURLOPT_READDATA, body);
+    // curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE, (curl_off_t)size);
+    // curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
+    // curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+    // // curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.42.0");
+    // res = curl_easy_perform(curl);
+    // if(res != CURLE_OK)
+    //   std::cout << "error: " << curl_easy_strerror(res) << "\n";
+    // curl_easy_cleanup(curl);
+    
+    // std::stringstream ss;
+    // ss << this->readBuffer;
+    // boost::property_tree::read_json(ss, jsonReadBuffer);
+  }  
+}
   
 size_t Command::writeCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
   ((std::string*)userp)->append((char*)contents, size * nmemb);
   return size * nmemb;
+}
+
+size_t read_callback(char *ptr, size_t size, size_t nmemb, void *stream)
+{
+  size_t retcode;
+  curl_off_t nread;
+ 
+  /* in real-world cases, this would probably get this data differently
+     as this fread() stuff is exactly what the library already would do
+     by default internally */
+  retcode = fread(ptr, size, nmemb, static_cast<FILE*>(stream));
+ 
+  nread = (curl_off_t)retcode;
+ 
+  fprintf(stderr, "*** We read %" CURL_FORMAT_CURL_OFF_T
+          " bytes from file\n", nread);
+ 
+  return retcode;
 }

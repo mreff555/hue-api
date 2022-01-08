@@ -14,30 +14,54 @@ class Command
   Command(std::shared_ptr<Config>);
 
   virtual ~Command();
-  
+
   bool unauthorizedResponse();
 
   bool findHubIp();
 
+  /*
+  * @brief Waits 30 seconds for a button press
+  * @param N/A
+  * @param message body
+  * @return true on success
+  */
   bool waitForButtonPress();
 
+  /*
+  * @brief Attempts to automatically locate a hub if required and authenticate or initiate pairing if required.
+  * @param N/A
+  * @return true on success
+  */
   bool connect();
 
-std::vector<unsigned short> getDeviceVector();
+  std::vector<unsigned short> getDeviceVector();
 
-  // Public things that should probably be private
-  //
+  std::string getDeviceData(const unsigned int);
+
+  /*
+  * @brief Initiate a http POST message.
+  * @param url
+  * @param message body
+  * @return N/A
+  */
   void post(const std::string, const std::string);
 
+  /*
+  * @brief Initiate a http GET message.
+  * @param url
+  * @return N/A
+  */
   void get(const std::string);
 
-  void put(const std::string);
+  void put(const std::string url, const std::string body);
 
   private:
   CURL * curl;
   CURLcode res;
 
   static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp);
+  
+  static size_t read_callback(char *ptr, size_t size, size_t nmemb, void *stream);
 
   std::shared_ptr<Config> mCfg;
 

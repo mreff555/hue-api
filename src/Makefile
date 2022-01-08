@@ -1,6 +1,6 @@
 # tool macros
 CC := g++
-CCFLAGS := -lboost_system -lcurl
+# CCFLAGS := -lboost_system -lcurl
 DBGFLAGS := -g
 CCOBJFLAGS := $(CCFLAGS) -c
 
