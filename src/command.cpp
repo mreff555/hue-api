@@ -1,4 +1,5 @@
 #include "command.h"
+#include "device.h"
 #include <string>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -63,7 +64,7 @@ bool Command::waitForButtonPress()
     // TODO: This is a temporary copy and paste until I can figure out more about these device types
     // The way I understand it now, this should be some type of UUID.  It's value is probably a seed
     // for the generated username when you press the id. 
-    std::string body = "{\"devicetype\":\"my_hue_app#iphone peter\"}";
+    std::string body = "{\"devicetype\":\"hue_api#three_sheets\"}";
     for(int i = 0; i < 60; ++i)
     {
       post(url, body);
@@ -148,6 +149,8 @@ std::string Command::getDeviceData(const unsigned int id)
 {
   std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getUsername() + "/lights/" + std::to_string(id);
   get(url);
+  Hue::Device device;
+  //device.state
   return readBuffer;
 }
 
