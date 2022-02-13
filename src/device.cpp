@@ -38,27 +38,32 @@ Hue::ControlCapabilities::ControlCapabilities(unsigned _mindimlevel, unsigned _m
     //     };
 }
 
-Hue::StreamingCapabilities::StreamingCapabilities(bool render, bool proxy)
+Hue::StreamingCapabilities::StreamingCapabilities(bool _renderer, bool _proxy)
+: renderer(_renderer), proxy(_proxy)
 {
 
 }
 
-Hue:: Capabilities::Capabilities(std::string certified, ControlCapabilities control, StreamingCapabilities streaming)
+Hue:: Capabilities::Capabilities(bool _certified, ControlCapabilities _control, StreamingCapabilities _streaming)
+: certified(_certified), control(_control), streaming(_streaming)
 {
 
 }
 
-Hue::StartUp::StartUp(std::string mode, bool configured)
+Hue::StartUp::StartUp(std::string _mode, bool _configured)
+: mode(_mode), configured(_configured)
 {
 
 }
 
-Hue::Config::Config(std::string archtype, std::string function, std::string direction, StartUp startUp)
+Hue::Config::Config(std::string _archtype, std::string _function, std::string _direction, StartUp _startUp)
+: archtype(_archtype), function(_function), direction(_direction), startUp(_startUp)
 {
 
 }
 
-Hue::Device::Device(State state, SwUpdate swupdate, std::string type, std::string name, std::string modelid, std::string manufacturername, std::string productname, Capabilities capabilities, Config config, std::string uniqueid, std::string swversion, std::string swconfigid, std::string productid)
+Hue::Device::Device(State _state, SwUpdate _swUpdate, std::string _type, std::string _name, std::string _modelid, std::string _manufacturername, std::string _productname, Capabilities _capabilities, Config _config, std::string _uniqueid, std::string _swversion, std::string _swconfigid, std::string _productid)
+: state(_state), swupdate(_swUpdate), type(_type), name(_name), modelid(_modelid), manufacturername(_manufacturername), productname(_productname), capabilities(_capabilities), config(_config), uniqueid(_uniqueid), swversion(_swversion), swconfigid(_swconfigid), productid(_productid)
 {
     
 }

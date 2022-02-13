@@ -198,11 +198,23 @@ void Command::getDeviceData(const unsigned int id)
       ct
     );
 
+    Hue::StreamingCapabilities streamingCapabilities(
+      jsonReadBuffer.get<bool>("capabilities.streaming.renderer"),
+      jsonReadBuffer.get<bool>("capabilities.streaming.proxy")
+    );
+
+    Hue::Capabilities capabilities(
+      jsonReadBuffer.get<bool>("capabilities.certified"),
+      controlCapabilities,
+      streamingCapabilities
+    );
+
     // TODO: Finish the rest of the device 
 
     Hue::Device device;
     device.state = state;
     device.swupdate = swUpdate;
+    device.capabilities = capabilities;
     // TODO: Make sure you add everything to the device;
     deviceArray[id] = device; 
   }

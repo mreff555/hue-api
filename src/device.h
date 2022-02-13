@@ -64,7 +64,7 @@ namespace Hue
 
     struct StreamingCapabilities
     {
-        bool render;
+        bool renderer;
         bool proxy;
         StreamingCapabilities(bool, bool);
         StreamingCapabilities(){}
@@ -73,10 +73,10 @@ namespace Hue
 
     struct Capabilities
     {
-        std::string certified;
+        bool certified;
         ControlCapabilities control;
         StreamingCapabilities streaming;
-        Capabilities(std::string, ControlCapabilities, StreamingCapabilities);
+        Capabilities(bool, ControlCapabilities, StreamingCapabilities);
         Capabilities(){}
         ~Capabilities() = default;
     };

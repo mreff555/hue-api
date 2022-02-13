@@ -24,6 +24,8 @@ int main()
   std::cout << "Brightness: " << cmd->deviceArray[6].state.bri << "\n";
   std::cout << "Hue: " << cmd->deviceArray[6].state.hue << "\n";
   std::cout << "Saturation : " << cmd->deviceArray[6].state.sat << "\n";
+  std::cout << "Max Lumen : " << cmd->deviceArray[6].capabilities.control.maxlumen << "\n";
+
   return 0;
 }
 
