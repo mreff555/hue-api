@@ -2,6 +2,7 @@
 #define COMMAND_H
 
 #include "config.h"
+#include "device.h"
 #include <string>
 #include <curl/curl.h>
 #include <boost/property_tree/ptree.hpp>
@@ -19,7 +20,7 @@ class Command
 
   bool findHubIp();
 
-  /*
+  /**
   * @brief Waits 30 seconds for a button press
   * @param N/A
   * @param message body
@@ -36,9 +37,14 @@ class Command
 
   std::vector<unsigned short> getDeviceVector();
 
-  std::string getDeviceData(const unsigned int);
+  /**
+   * @brief Collect device data for the given id if available
+   * 
+   * @param device id
+   */
+  void getDeviceData(const unsigned int);
 
-  /*
+  /**
   * @brief Initiate a http POST message.
   * @param url
   * @param message body
@@ -46,7 +52,7 @@ class Command
   */
   void post(const std::string, const std::string);
 
-  /*
+  /**
   * @brief Initiate a http GET message.
   * @param url
   * @return N/A
@@ -63,13 +69,16 @@ class Command
   
   static size_t read_callback(char *ptr, size_t size, size_t nmemb, void *stream);
 
+  template <typename T>
+  std::vector<T> as_vector(boost::property_tree::ptree const& pt, boost::property_tree::ptree::key_type const& key);
+
   std::shared_ptr<Config> mCfg;
 
   // This stuff should be private
   public:
   std::string readBuffer;
   boost::property_tree::ptree jsonReadBuffer;
-
+  Hue::Device deviceArray[63];
 };
 
 #endif /* COMMAND_H */

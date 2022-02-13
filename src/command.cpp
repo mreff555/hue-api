@@ -1,5 +1,4 @@
 #include "command.h"
-#include "device.h"
 #include <string>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -145,13 +144,68 @@ std::vector<unsigned short> Command::getDeviceVector()
   }
 }
 
-std::string Command::getDeviceData(const unsigned int id)
+void Command::getDeviceData(const unsigned int id)
 {
+  std::string returnString;
+  readBuffer.clear();
   std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getUsername() + "/lights/" + std::to_string(id);
   get(url);
-  Hue::Device device;
-  //device.state
-  return readBuffer;
+  auto errorType = jsonReadBuffer.get_optional<int>(".error.type");
+  if(errorType.is_initialized())
+  {
+    returnString = "Error Type " + std::to_string(errorType.get()) + "\n";
+  } 
+  else 
+  {
+    returnString = readBuffer;
+    
+    auto xyVec = Command::as_vector<float>(jsonReadBuffer, "state.xy");
+    Hue::Xy xy(xyVec[0], xyVec[1]);
+
+    Hue::State state(
+      jsonReadBuffer.get<bool>("state.on"),
+      jsonReadBuffer.get<unsigned>("state.bri"),
+      jsonReadBuffer.get<unsigned>("state.hue"),
+      jsonReadBuffer.get<unsigned>("state.sat"),
+      jsonReadBuffer.get<std::string>("state.effect"),
+      xy,
+      jsonReadBuffer.get<unsigned>("state.ct"),
+      jsonReadBuffer.get<std::string>("state.alert"),
+      jsonReadBuffer.get<std::string>("state.colormode"),
+      jsonReadBuffer.get<std::string>("state.mode"),
+      jsonReadBuffer.get<bool>("state.reachable")
+    );
+
+    Hue::SwUpdate swUpdate(
+      jsonReadBuffer.get<std::string>("swupdate.state"),
+      jsonReadBuffer.get<std::string>("swupdate.lastinstall")
+    );
+
+    Hue::Ct ct(
+      jsonReadBuffer.get<unsigned>("capabilities.control.ct.min"),
+      jsonReadBuffer.get<unsigned>("capabilities.control.ct.max")
+    );
+
+    // TODO: Figure out how to handle multi-dimensional vectors with property trees
+    //auto colorGamutVec = Command::as_vector<float>(jsonReadBuffer, "capabilities.control.colorgamut");
+    //float *colorGamutArr = &colorGamutVec[0];
+    float colorGamutArr[3][2] = {};
+    Hue::ControlCapabilities controlCapabilities(
+      jsonReadBuffer.get<unsigned>("capabilities.control.mindimlevel"),
+      jsonReadBuffer.get<unsigned>("capabilities.control.maxlumen"),
+      jsonReadBuffer.get<std::string>("capabilities.control.colorgamuttype"),
+      colorGamutArr,
+      ct
+    );
+
+    // TODO: Finish the rest of the device 
+
+    Hue::Device device;
+    device.state = state;
+    device.swupdate = swUpdate;
+    // TODO: Make sure you add everything to the device;
+    deviceArray[id] = device; 
+  }
 }
 
 
@@ -253,4 +307,13 @@ size_t read_callback(char *ptr, size_t size, size_t nmemb, void *stream)
           " bytes from file\n", nread);
  
   return retcode;
+}
+
+template <typename T>
+std::vector<T> Command::as_vector(boost::property_tree::ptree const& pt, boost::property_tree::ptree::key_type const& key)
+{
+    std::vector<T> r;
+    for (auto& item : pt.get_child(key))
+        r.push_back(item.second.get_value<T>());
+    return r;
 }

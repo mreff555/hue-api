@@ -19,10 +19,11 @@ int main()
   std::shared_ptr<Config> cfg = std::make_shared<Config>();
   std::shared_ptr<Command> cmd = std::make_shared<Command>(cfg);
 
-  // cmd->getDeviceVector();
-  std::cout << cmd->getDeviceData(6);
-
-
+  cmd->getDeviceData(6);
+  std::cout << "On: " << cmd->deviceArray[6].state.on << "\n";
+  std::cout << "Brightness: " << cmd->deviceArray[6].state.bri << "\n";
+  std::cout << "Hue: " << cmd->deviceArray[6].state.hue << "\n";
+  std::cout << "Saturation : " << cmd->deviceArray[6].state.sat << "\n";
   return 0;
 }
 
