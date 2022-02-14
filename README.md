@@ -13,12 +13,3 @@ Features:
   - Get and Post methods implemented
 
   - Auto-connect, hub IP retrieval and authentication (Testing in progress) 
-
-TO DO:
-
-  - Create Light class which will hold all of the structures for the light and implement
-    all of the high level functionality.  It should dependancy inject the Command class 
-    and implement a virtual interface to Command where appropriate, such as the connect 
-    method.  The goal would be that the end user will not need to make calls within
-    the Command and Config methods.
-
