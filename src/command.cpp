@@ -209,17 +209,36 @@ void Command::getDeviceData(const unsigned int id)
       streamingCapabilities
     );
 
-    // TODO: Finish the rest of the device 
+    Hue::StartUp startUp(
+      jsonReadBuffer.get<std::string>("config.startup.mode"),
+      jsonReadBuffer.get<bool>("config.startup.configured")
+    );
 
-    Hue::Device device;
-    device.state = state;
-    device.swupdate = swUpdate;
-    device.capabilities = capabilities;
-    // TODO: Make sure you add everything to the device;
+    Hue::Config config(
+      jsonReadBuffer.get<std::string>("config.archetype"),
+      jsonReadBuffer.get<std::string>("config.function"),
+      jsonReadBuffer.get<std::string>("config.direction"),
+      startUp
+    );
+
+    Hue::Device device(
+      state,
+      swUpdate,
+      jsonReadBuffer.get<std::string>("type"),
+      jsonReadBuffer.get<std::string>("name"),
+      jsonReadBuffer.get<std::string>("modelid"),
+      jsonReadBuffer.get<std::string>("manufacturername"),
+      jsonReadBuffer.get<std::string>("productname"),
+      capabilities,
+      config,
+      jsonReadBuffer.get<std::string>("uniqueid"),
+      jsonReadBuffer.get<std::string>("swversion"),
+      jsonReadBuffer.get<std::string>("swconfigid"),
+      jsonReadBuffer.get<std::string>("productid")
+    );
     deviceArray[id] = device; 
   }
 }
-
 
 void Command::post(const std::string url, const std::string body)
 {
@@ -253,10 +272,6 @@ void Command::get(const std::string url)
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.42.0");
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-    // curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
-    // curl_easy_setopt(curl, CURLOPT_USERPWD, "user:pass");
-    // curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
-    // curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
     res = curl_easy_perform(curl);
     if(res != CURLE_OK)
       std::cout << "error: " << curl_easy_strerror(res) << "\n";
@@ -270,31 +285,38 @@ void Command::get(const std::string url)
 
 void Command::put(const std::string url, const std::string body)
 {
+
+  CURLcode ret;
+  struct curl_slist *slist1;
+  slist1 = NULL;
+  slist1 = curl_slist_append(slist1, "Content-Type: multipart/form-data;");
   curl = curl_easy_init();
   if(curl)
   {
-    std::stringstream ss;
-    ss << body;
-    ss.seekg(0, std::ios::end);
-    int size = ss.tellg();
+    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, 102400L);
+    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t)12);
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, slist1);
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.79.1");
+    curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
+    curl_easy_setopt(curl, CURLOPT_SSH_KNOWNHOSTS, "/Users/$USER/.ssh/known_hosts");
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_easy_setopt(curl, CURLOPT_FTP_SKIP_PASV_IP, 1L);
+    curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
 
-    // this->readBuffer.clear();
-    // curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
-    // curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-    // curl_easy_setopt(curl, CURLOPT_READDATA, body);
-    // curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE, (curl_off_t)size);
-    // curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
-    // curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-    // // curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.42.0");
-    // res = curl_easy_perform(curl);
-    // if(res != CURLE_OK)
-    //   std::cout << "error: " << curl_easy_strerror(res) << "\n";
-    // curl_easy_cleanup(curl);
-    
-    // std::stringstream ss;
-    // ss << this->readBuffer;
-    // boost::property_tree::read_json(ss, jsonReadBuffer);
-  }  
+    ret = curl_easy_perform(curl);
+
+    curl_easy_cleanup(curl);
+    curl = NULL;
+    curl_slist_free_all(slist1);
+    slist1 = NULL;
+  }
+  curl_easy_cleanup(curl);
+  curl = nullptr;
+  curl_slist_free_all(slist1);
+  slist1 = NULL;
 }
   
 size_t Command::writeCallback(void *contents, size_t size, size_t nmemb, void *userp)

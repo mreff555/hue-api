@@ -27,7 +27,18 @@ namespace Hue
         std::string colormode;
         std::string mode;
         bool reachable;
-        State(bool, unsigned, unsigned, unsigned, std::string, Xy, unsigned, std::string, std::string, std::string, bool);
+        State(
+            bool, 
+            unsigned, 
+            unsigned, 
+            unsigned, 
+            std::string, 
+            Xy, 
+            unsigned, 
+            std::string, 
+            std::string, 
+            std::string, 
+            bool);
         State(){}
         ~State() = default;
     };
