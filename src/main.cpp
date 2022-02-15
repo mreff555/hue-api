@@ -17,7 +17,8 @@ int main()
   std::cout << "Max Lumen : " << cmd->deviceArray[6].capabilities.control.maxlumen << "\n";
   std::cout << "Function : " << cmd->deviceArray[6].config.function << "\n";
 
-  cmd->put("http://192.168.1.7/api/14ieK0ZYTBJ2lH76RvqYlPP7fiJeXvZDrkpJ6A2-/lights/6/state", "{\"on\":false}");
+  //cmd->put("http://192.168.1.7/api/14ieK0ZYTBJ2lH76RvqYlPP7fiJeXvZDrkpJ6A2-/lights/6/state", "{\"on\":false}");
+
   return 0;
 }
 

@@ -1,8 +1,8 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include "smartField.h"
 #include <string>
-
 namespace Hue
 {
     struct Xy
