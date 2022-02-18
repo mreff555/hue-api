@@ -1,9 +1,14 @@
 #include "device.h"
+#include <iostream>
+
 
 Hue::Xy::Xy(float _x, float _y) 
-: x(_x), y(_y)
 {
-    
+  SmartField<float> x("abc", "def", _x);
+  SmartField<float> y("abc", "def", _y);
+  std::cout << "setting x to " << x.getValue() << "\n";
+  std::cout << x.getBody() << "\n";
+
 }
 
 Hue::State::State(bool _on, unsigned _bri, unsigned _hue, unsigned _sat, std::string _effect, Xy _xy, unsigned _ct, std::string _alert, std::string _colormode, std::string _mode, bool _reachable)

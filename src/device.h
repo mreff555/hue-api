@@ -2,13 +2,15 @@
 #define DEVICE_H
 
 #include "smartField.h"
+#include "smartField.cpp"
 #include <string>
+
 namespace Hue
 {
     struct Xy
     {
-        float x;
-        float y;
+        SmartField<float> x(std::string, std::string);
+        SmartField<float> y(std::string, std::string);
         Xy(float, float);
         Xy(){}
         ~Xy() = default;
