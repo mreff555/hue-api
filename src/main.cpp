@@ -1,14 +1,35 @@
 #include "config.h"
 #include "command.h"
+#include "device.h"
+#include "syncManager.h"
 #include <memory>
 #include <iostream>
+#include <signal.h>
+
+/* Terminate processing flag */
+bool terminate = false;
+  
+void sigHandler(int signum)
+{
+  terminate = true;
+  printf("Terminated on sig %d\n", signum); 
+}
 
 int main()
 {
+
+  /* Signal traps for various inturrupts       */
+  signal(SIGINT, sigHandler);  /* Ctrl + C     */
+  signal(SIGQUIT, sigHandler); /* Ctrl + D     */
+  signal(SIGHUP, sigHandler);  /* On pty close */
+  signal(SIGTERM, sigHandler); /* On term sig  */
+
   auto cfg = std::make_shared<Config>();
   auto cmd = std::make_shared<Command>(cfg);
+  auto dev = std::make_shared<Hue::Device>();
+  auto mgr = std::make_shared<SyncManager>(cmd, dev);
 
-  Hue::Xy xy(3,5);
+  // Hue::Xy xy(3,5);
 
   // cmd->getDeviceData(6);
   // std::cout << "On: " << cmd->deviceArray[6].state.on << "\n";

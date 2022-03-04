@@ -59,10 +59,6 @@ bool Command::waitForButtonPress()
   {
     std::cout << "Waiting 30 seconds for button press...\n";
     std::string url = "http://" + mCfg->getInternalIpAddress() + "/api";
-  
-    // TODO: This is a temporary copy and paste until I can figure out more about these device types
-    // The way I understand it now, this should be some type of UUID.  It's value is probably a seed
-    // for the generated username when you press the id. 
     std::string body = "{\"devicetype\":\"hue_api#three_sheets\"}";
     for(int i = 0; i < 60; ++i)
     {
@@ -119,30 +115,25 @@ bool Command::connect()
   return success;
 }
 
-// I don't really know what I am going to do with this yet,
-// but I THINK it's a logical next step.  The output vector
-// is a list of numbers representing active devices.
-// Maybe this should be a map, and maybe it should point
-// to something useful.  Maybe it shouldn't be in this class.
-// All things to contemplate. 
-std::vector<unsigned short> Command::getDeviceVector()
-{
-  std::vector<unsigned short> vec;
-  std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getUsername() + "/lights";
-  get(url);
-  std::string str;
-  for(int i = 0; i < 32; ++i)
-  {
-    str.clear();
-    str = std::to_string(i) + ".state.reachable";
-    boost::optional<bool> reachable = jsonReadBuffer.get_optional<bool>(str);
-    if(reachable)
-    {
-      vec.push_back(i);
-      std::cout << i << "\n";
-    }
-  }
-}
+// TODO: Not sure if I still need this
+// std::vector<unsigned short> Command::getDeviceVector()
+// {
+//   std::vector<unsigned short> vec;
+//   std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getUsername() + "/lights";
+//   get(url);
+//   std::string str;
+//   for(int i = 0; i < 32; ++i)
+//   {
+//     str.clear();
+//     str = std::to_string(i) + ".state.reachable";
+//     boost::optional<bool> reachable = jsonReadBuffer.get_optional<bool>(str);
+//     if(reachable)
+//     {
+//       vec.push_back(i);
+//       std::cout << i << "\n";
+//     }
+//   }
+// }
 
 void Command::getDeviceData(const unsigned int id)
 {

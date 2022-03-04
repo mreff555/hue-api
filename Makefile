@@ -1,5 +1,6 @@
 # tool macros
 CC := g++
+# TODO: Get rid of -Wunused-command-line-argument warnings
 CCFLAGS := -lcurl -std=c++11
 DBGFLAGS := -g
 CCOBJFLAGS := $(CCFLAGS) -c

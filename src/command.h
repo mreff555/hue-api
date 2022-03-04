@@ -28,14 +28,14 @@ class Command
   */
   bool waitForButtonPress();
 
-  /*
+  /**
   * @brief Attempts to automatically locate a hub if required and authenticate or initiate pairing if required.
   * @param N/A
   * @return true on success
   */
   bool connect();
 
-  std::vector<unsigned short> getDeviceVector();
+  // std::vector<unsigned short> getDeviceVector();
 
   /**
    * @brief Collect device data for the given id if available
@@ -63,6 +63,7 @@ class Command
 
   private:
   CURL * curl;
+
   CURLcode res;
 
   static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp);
@@ -74,10 +75,10 @@ class Command
 
   std::shared_ptr<Config> mCfg;
 
-  // This stuff should be private
-  public:
   std::string readBuffer;
+
   boost::property_tree::ptree jsonReadBuffer;
+  
   Hue::Device deviceArray[63];
 };
 
