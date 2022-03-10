@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Fri Mar  4 08:02:17 2022
+# Make data base, printed on Sat Mar  5 08:25:32 2022
 
 # Variables
 
@@ -18,6 +17,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 ?F = $(notdir $?)
 # makefile (from `Makefile', line 24)
 OBJ := obj/command.o obj/config.o obj/device.o obj/main.o obj/smartField.o obj/syncManager.o
+ 
 # makefile (from `Makefile', line 23)
 SRC :=  src/command.cpp src/config.cpp src/device.cpp src/main.cpp src/smartField.cpp src/syncManager.cpp
 # environment
@@ -36,7 +36,6 @@ CURDIR := /Users/mreff555/src/hue-api
 SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
- 
 # environment
 _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
@@ -46,15 +45,13 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/vscode-ipc-11b46410-b77d-461f-8309-50af1a8f66d6.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/vscode-ipc-8a42b396-ce3c-443c-b966-07bb6023c275.sock
 # environment
 VSCODE_CWD = /
 # environment
 PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS
 # makefile (from `Makefile', line 11)
 SRC_PATH := src
-# environment
-LaunchInstanceID = 8DA46F0C-D340-40EE-9F2A-E08072C921AD
 # makefile (from `Makefile', line 9)
 BIN_PATH := bin
 # environment
@@ -78,13 +75,13 @@ ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # makefile (from `Makefile', line 30)
 CLEAN_LIST := bin/light-thing debug/light-thing obj/command.o obj/config.o obj/device.o obj/main.o obj/smartField.o obj/syncManager.o debug/command.o debug/config.o debug/device.o debug/main.o debug/smartField.o debug/syncManager.o
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /Users/mreff555
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/f80445acd5a3dadef24aa209168452a3d97cc326
+VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/b5205cc8eb4fbaa726835538cd82372cc0222d43
 # environment
 LOGNAME = mreff555
 # environment
@@ -128,7 +125,7 @@ TMPDIR = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.64.2-main.sock
+VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.65.0-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -155,8 +152,6 @@ DBG_PATH := debug
 LC_ALL = C
 # makefile (from `Makefile', line 5)
 DBGFLAGS := -g
-# environment
-SECURITYSESSIONID = 187fa
 # automatic
 ^F = $(notdir $^)
 # default
@@ -170,11 +165,11 @@ OBJ_DEBUG := debug/command.o debug/config.o debug/device.o debug/main.o debug/sm
 # environment
 LANG = C
 # environment
-VSCODE_PID = 10798
+VSCODE_PID = 34048
 # makefile (from `Makefile', line 28)
 DISTCLEAN_LIST := obj/command.o obj/config.o obj/device.o obj/main.o obj/smartField.o obj/syncManager.o debug/command.o debug/config.o debug/device.o debug/main.o debug/smartField.o debug/syncManager.o
 # variable set hash-table stats:
-# Load=80/1024=8%, Rehash=0, Collisions=4/130=3%
+# Load=78/1024=8%, Rehash=0, Collisions=4/128=3%
 
 # Pattern-specific Variable Values
 
@@ -183,9 +178,9 @@ DISTCLEAN_LIST := obj/command.o obj/config.o obj/device.o obj/main.o obj/smartFi
 # Directories
 
 # . (device 16777222, inode 8093638): 13 files, no impossibilities.
-# src (device 16777222, inode 8093709): 15 files, no impossibilities.
+# src (device 16777222, inode 8093709): 14 files, no impossibilities.
 
-# 28 files, no impossibilities in 2 directories.
+# 27 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -227,7 +222,6 @@ src/device.cpp:
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
- 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 all: bin/light-thing
@@ -310,6 +304,7 @@ debug: debug/light-thing
 
 # Not a target:
 src/command.cpp:
+ 
 #  Implicit rule search has been done.
 #  Last modified 2022-03-04 07:57:32
 #  File has been updated.
@@ -426,7 +421,6 @@ obj/command.o: src/command.cpp
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
- 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 42):
 	$(CC) $(CCOBJFLAGS) -o $@ $<
@@ -475,6 +469,6 @@ src/smartField.cpp:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Mar  4 08:02:17 2022
+# Finished Make data base on Sat Mar  5 08:25:32 2022
 
  

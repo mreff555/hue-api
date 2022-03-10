@@ -15,6 +15,11 @@ Command::Command(std::shared_ptr<Config> _config) : mCfg(_config)
 {
   curl_global_init(CURL_GLOBAL_ALL);
   connect();
+
+  for(int i = 0; i < deviceArraySize; ++i)
+  {
+    getDeviceData(i);
+  }
 }
 
 Command::~Command()
@@ -135,7 +140,7 @@ bool Command::connect()
 //   }
 // }
 
-void Command::getDeviceData(const unsigned int id)
+std::string Command::getDeviceData(const unsigned int id)
 {
   std::string returnString;
   readBuffer.clear();
@@ -227,8 +232,9 @@ void Command::getDeviceData(const unsigned int id)
       jsonReadBuffer.get<std::string>("swconfigid"),
       jsonReadBuffer.get<std::string>("productid")
     );
-    deviceArray[id] = device; 
+    deviceContainer[id].setData(device);
   }
+  return returnString;
 }
 
 void Command::post(const std::string url, const std::string body)

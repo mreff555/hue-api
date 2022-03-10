@@ -31,16 +31,22 @@ int main()
 
   // Hue::Xy xy(3,5);
 
-  // cmd->getDeviceData(6);
-  // std::cout << "On: " << cmd->deviceArray[6].state.on << "\n";
-  // std::cout << "Brightness: " << cmd->deviceArray[6].state.bri << "\n";
-  // std::cout << "Hue: " << cmd->deviceArray[6].state.hue << "\n";
-  // std::cout << "Saturation : " << cmd->deviceArray[6].state.sat << "\n";
-  // std::cout << "Product Name : " << cmd->deviceArray[6].productname << "\n";
-  // std::cout << "Max Lumen : " << cmd->deviceArray[6].capabilities.control.maxlumen << "\n";
-  // std::cout << "Function : " << cmd->deviceArray[6].config.function << "\n";
+  cmd->deviceContainer[28].setName("Max's Room");
+  for(int i = 0; i < deviceArraySize; ++i)
+  {
+    // std::cout << i << " - On: " << cmd->deviceArray[i].state.on << "\n";
+    std::cout << i << ": " 
+      << cmd->deviceContainer[i].getName() 
+      << " - on: " << cmd->deviceContainer[i].getData().state.on << "\n";
+  }
+  // std::cout << "Brightness: " << cmd->deviceArray[lightId].state.bri << "\n";
+  // std::cout << "Hue: " << cmd->deviceArray[lightId].state.hue << "\n";
+  // std::cout << "Saturation : " << cmd->deviceArray[lightId].state.sat << "\n";
+  // std::cout << "Product Name : " << cmd->deviceArray[lightId].productname << "\n";
+  // std::cout << "Max Lumen : " << cmd->deviceArray[lightId].capabilities.control.maxlumen << "\n";
+  // std::cout << "Function : " << cmd->deviceArray[lightId].config.function << "\n";
 
-  //cmd->put("http://192.168.1.7/api/14ieK0ZYTBJ2lH76RvqYlPP7fiJeXvZDrkpJ6A2-/lights/6/state", "{\"on\":false}");
+  cmd->put("http://192.168.1.7/api/14ieK0ZYTBJ2lH76RvqYlPP7fiJeXvZDrkpJ6A2-/lights/4/state", "{\"on\":false}");
 
 //Hue::Xy xy(4,5);
 //std::cout << xy.x.getBody() << "\n";

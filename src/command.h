@@ -3,11 +3,13 @@
 
 #include "config.h"
 #include "device.h"
+#include "deviceContainer.h"
 #include <string>
 #include <curl/curl.h>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <memory>
+constexpr unsigned short deviceArraySize = 64;
 
 class Command
 {
@@ -42,7 +44,7 @@ class Command
    * 
    * @param device id
    */
-  void getDeviceData(const unsigned int);
+  std::string getDeviceData(const unsigned int);
 
   /**
   * @brief Initiate a http POST message.
@@ -79,7 +81,9 @@ class Command
 
   boost::property_tree::ptree jsonReadBuffer;
   
-  Hue::Device deviceArray[63];
+  public:
+  // Hue::Device deviceArray[deviceArraySize];
+  DeviceContainer deviceContainer[deviceArraySize];
 };
 
 #endif /* COMMAND_H */
