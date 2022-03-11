@@ -10,6 +10,8 @@ Features:
   - JSON Configuration file which can populate and save off up settings.  Could be used
     for lighting settings as well
 
-  - Get and Post methods implemented
+  - Get and Post and Put methods implemented
 
-  - Auto-connect, hub IP retrieval and authentication (Testing in progress) 
+  - Auto-connect, hub IP retrieval and authentication (Testing in progress)
+
+  - Local name and descriptions for lights.

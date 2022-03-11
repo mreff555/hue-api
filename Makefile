@@ -1,6 +1,7 @@
 # tool macros
 CC := g++
-CCFLAGS := -lboost_system -lcurl -std=c++11
+# TODO: Get rid of -Wunused-command-line-argument warnings
+CCFLAGS := -lcurl -std=c++11
 DBGFLAGS := -g
 CCOBJFLAGS := $(CCFLAGS) -c
 

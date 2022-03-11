@@ -1,9 +1,13 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/mreff555/src/hue-api'
 mkdir -p bin obj debug
-g++ -lboost_system -lcurl -c -o obj/command.o src/command.cpp
-g++ -lboost_system -lcurl -c -o obj/config.o src/config.cpp
-g++ -lboost_system -lcurl -c -o obj/main.o src/main.cpp
-g++ -lboost_system -lcurl -o bin/light-thing obj/command.o obj/config.o obj/main.o
+ 
+g++ -lcurl -std=c++11 -c -o obj/command.o src/command.cpp
+g++ -lcurl -std=c++11 -c -o obj/config.o src/config.cpp
+g++ -lcurl -std=c++11 -c -o obj/device.o src/device.cpp
+g++ -lcurl -std=c++11 -c -o obj/main.o src/main.cpp
+g++ -lcurl -std=c++11 -c -o obj/smartField.o src/smartField.cpp
+g++ -lcurl -std=c++11 -c -o obj/syncManager.o src/syncManager.cpp
+g++ -lcurl -std=c++11 -o bin/light-thing obj/command.o obj/config.o obj/device.o obj/main.o obj/smartField.o obj/syncManager.o
 make: Leaving directory `/Users/mreff555/src/hue-api'
  

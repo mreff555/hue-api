@@ -1,6 +1,8 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include "smartField.h"
+#include "smartField.cpp"
 #include <string>
 
 namespace Hue
@@ -9,8 +11,10 @@ namespace Hue
     {
         float x;
         float y;
+        // SmartField<float> x(std::string, std::string);
+        // SmartField<float> y(std::string, std::string);
         Xy(float, float);
-        Xy(){}
+        Xy();
         ~Xy() = default;
     };
 
@@ -39,7 +43,7 @@ namespace Hue
             std::string, 
             std::string, 
             bool);
-        State(){}
+        State();
         ~State() = default;
     };
 
@@ -48,7 +52,7 @@ namespace Hue
         std::string state;
         std::string lastInstall;
         SwUpdate(std::string, std::string);
-        SwUpdate(){}
+        SwUpdate();
         ~SwUpdate() = default;
     };
 
@@ -57,7 +61,7 @@ namespace Hue
         unsigned min;
         unsigned max;
         Ct(unsigned, unsigned);
-        Ct(){}
+        Ct();
         ~Ct() = default;
     };
 
@@ -69,7 +73,7 @@ namespace Hue
         float colorgamut[3][2];
         Ct ct;
         ControlCapabilities(unsigned, unsigned, std::string, float[3][2], Ct);
-        ControlCapabilities(){}
+        ControlCapabilities();
         ~ControlCapabilities() = default;
     };
 
@@ -78,7 +82,7 @@ namespace Hue
         bool renderer;
         bool proxy;
         StreamingCapabilities(bool, bool);
-        StreamingCapabilities(){}
+        StreamingCapabilities();
         ~StreamingCapabilities() = default;
     };
 
@@ -88,7 +92,7 @@ namespace Hue
         ControlCapabilities control;
         StreamingCapabilities streaming;
         Capabilities(bool, ControlCapabilities, StreamingCapabilities);
-        Capabilities(){}
+        Capabilities();
         ~Capabilities() = default;
     };
 
@@ -97,7 +101,7 @@ namespace Hue
         std::string mode;
         bool configured;
         StartUp(std::string, bool);
-        StartUp(){}
+        StartUp();
         ~StartUp() = default;
     };
 
@@ -108,7 +112,7 @@ namespace Hue
         std::string direction;
         StartUp startUp;
         Config(std::string, std::string, std::string, StartUp);
-        Config(){}
+        Config();
         ~Config() = default;
     };
 
@@ -141,7 +145,7 @@ namespace Hue
             std::string, 
             std::string, 
             std::string);
-        Device(){}
+        Device();
         ~Device() = default;
     };
 }

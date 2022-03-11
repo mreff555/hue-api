@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Sat Jan  8 09:42:48 2022
+# Make data base, printed on Sat Mar  5 08:25:32 2022
 
 # Variables
 
@@ -15,13 +15,14 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
+# makefile (from `Makefile', line 24)
+OBJ := obj/command.o obj/config.o obj/device.o obj/main.o obj/smartField.o obj/syncManager.o
+ 
 # makefile (from `Makefile', line 23)
-OBJ := obj/command.o obj/config.o obj/main.o
-# makefile (from `Makefile', line 22)
-SRC :=  src/command.cpp src/config.cpp src/main.cpp
+SRC :=  src/command.cpp src/config.cpp src/device.cpp src/main.cpp src/smartField.cpp src/syncManager.cpp
 # environment
 VSCODE_LOG_NATIVE = false
-# makefile (from `Makefile', line 18)
+# makefile (from `Makefile', line 19)
 TARGET := bin/light-thing
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -44,14 +45,14 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/vscode-ipc-2a5b6d06-c546-4060-9f0f-cb1b1804e065.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/vscode-ipc-8a42b396-ce3c-443c-b966-07bb6023c275.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS
-# makefile (from `Makefile', line 10)
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS
+# makefile (from `Makefile', line 11)
 SRC_PATH := src
-# makefile (from `Makefile', line 8)
+# makefile (from `Makefile', line 9)
 BIN_PATH := bin
 # environment
 VSCODE_LOG_STACK = false
@@ -59,10 +60,10 @@ VSCODE_LOG_STACK = false
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
-# makefile (from `Makefile', line 5)
-CCOBJFLAGS := -lboost_system -lcurl -c
+# makefile (from `Makefile', line 6)
+CCOBJFLAGS := -lcurl -std=c++11 -c
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.nIWoYkKYYB/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ZzKrW6bh3g/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -71,20 +72,20 @@ VSCODE_PIPE_LOGGING = true
 PWD = /Users/mreff555/src/hue-api
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
-# makefile (from `Makefile', line 29)
-CLEAN_LIST := bin/light-thing debug/light-thing obj/command.o obj/config.o obj/main.o debug/command.o debug/config.o debug/main.o
+# makefile (from `Makefile', line 30)
+CLEAN_LIST := bin/light-thing debug/light-thing obj/command.o obj/config.o obj/device.o obj/main.o obj/smartField.o obj/syncManager.o debug/command.o debug/config.o debug/device.o debug/main.o debug/smartField.o debug/syncManager.o
 # environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /Users/mreff555
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/899d46d82c4c95423fb7e10e68eba52050e30ba3
+VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/b5205cc8eb4fbaa726835538cd82372cc0222d43
 # environment
 LOGNAME = mreff555
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -99,9 +100,9 @@ MAKECMDGOALS := all
 SHLVL = 1
 # makefile (from `Makefile', line 2)
 CC := g++
-# makefile (from `Makefile', line 14)
+# makefile (from `Makefile', line 15)
 TARGET_NAME := light-thing
-# makefile (from `Makefile', line 19)
+# makefile (from `Makefile', line 20)
 TARGET_DEBUG := debug/light-thing
 # default
 MAKE_VERSION := 3.81
@@ -109,9 +110,9 @@ MAKE_VERSION := 3.81
 USER = mreff555
 # makefile
 .DEFAULT_GOAL := default
-# makefile (from `Makefile', line 3)
-CCFLAGS := -lboost_system -lcurl
-# makefile (from `Makefile', line 9)
+# makefile (from `Makefile', line 4)
+CCFLAGS := -lcurl -std=c++11
+# makefile (from `Makefile', line 10)
 OBJ_PATH := obj
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
@@ -124,7 +125,7 @@ TMPDIR = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.63.2-main.sock
+VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.65.0-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -132,7 +133,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.16126321.16126327
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.17931015.17931024
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -145,11 +146,11 @@ COMMAND_MODE = unix2003
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
-# makefile (from `Makefile', line 11)
+# makefile (from `Makefile', line 12)
 DBG_PATH := debug
 # environment
 LC_ALL = C
-# makefile (from `Makefile', line 4)
+# makefile (from `Makefile', line 5)
 DBGFLAGS := -g
 # automatic
 ^F = $(notdir $^)
@@ -159,16 +160,16 @@ SUFFIXES :=
 .INCLUDE_DIRS = /usr/local/include
 # environment
 MAKELEVEL := 0
-# makefile (from `Makefile', line 24)
-OBJ_DEBUG := debug/command.o debug/config.o debug/main.o
+# makefile (from `Makefile', line 25)
+OBJ_DEBUG := debug/command.o debug/config.o debug/device.o debug/main.o debug/smartField.o debug/syncManager.o
 # environment
 LANG = C
 # environment
-VSCODE_PID = 10264
-# makefile (from `Makefile', line 27)
-DISTCLEAN_LIST := obj/command.o obj/config.o obj/main.o debug/command.o debug/config.o debug/main.o
+VSCODE_PID = 34048
+# makefile (from `Makefile', line 28)
+DISTCLEAN_LIST := obj/command.o obj/config.o obj/device.o obj/main.o obj/smartField.o obj/syncManager.o debug/command.o debug/config.o debug/device.o debug/main.o debug/smartField.o debug/syncManager.o
 # variable set hash-table stats:
-# Load=78/1024=8%, Rehash=0, Collisions=4/132=3%
+# Load=78/1024=8%, Rehash=0, Collisions=4/128=3%
 
 # Pattern-specific Variable Values
 
@@ -176,20 +177,20 @@ DISTCLEAN_LIST := obj/command.o obj/config.o obj/main.o debug/command.o debug/co
 
 # Directories
 
-# . (device 16777220, inode 8093638): 13 files, no impossibilities.
-# src (device 16777220, inode 8093709): 11 files, no impossibilities.
+# . (device 16777222, inode 8093638): 13 files, no impossibilities.
+# src (device 16777222, inode 8093709): 14 files, no impossibilities.
 
-# 24 files, no impossibilities in 2 directories.
+# 27 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
 obj/%.o: src/%.c*
-#  commands to execute (from `Makefile', line 41):
+#  commands to execute (from `Makefile', line 42):
 	$(CC) $(CCOBJFLAGS) -o $@ $<
 	
 
 debug/%.o: src/%.c*
-#  commands to execute (from `Makefile', line 44):
+#  commands to execute (from `Makefile', line 45):
 	$(CC) $(CCOBJFLAGS) $(DBGFLAGS) -o $@ $<
 	
 
@@ -203,16 +204,25 @@ debug/main.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-bin/light-thing: obj/command.o obj/config.o obj/main.o
+bin/light-thing: obj/command.o obj/config.o obj/device.o obj/main.o obj/smartField.o obj/syncManager.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-01-08 09:32:57
+#  Last modified 2022-03-04 07:59:19
 #  File has been updated.
-#  Needs to be updated (-q is set).
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
-#  commands to execute (from `Makefile', line 38):
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 39):
 	$(CC) $(CCFLAGS) -o $@ $(OBJ)
 	
+
+# Not a target:
+src/device.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-04 07:51:36
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 all: bin/light-thing
 #  Phony target (prerequisite of .PHONY).
@@ -220,20 +230,26 @@ all: bin/light-thing
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 .PHONY: makedir all debug clean distclean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-debug/light-thing: debug/command.o debug/config.o debug/main.o
+# Not a target:
+debug/syncManager.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 47):
+
+debug/light-thing: debug/command.o debug/config.o debug/device.o debug/main.o debug/smartField.o debug/syncManager.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 48):
 	$(CC) $(CCFLAGS) $(DBGFLAGS) $(OBJ_DEBUG) -o $@
 	
 
@@ -242,16 +258,22 @@ distclean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 67):
+#  commands to execute (from `Makefile', line 68):
 	@echo CLEAN $(CLEAN_LIST)
 	@rm -f $(DISTCLEAN_LIST)
 	
 
-# Not a target:
-obj/main.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/main.o: src/main.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `main'
+#  Last modified 2022-03-04 07:59:18
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 42):
+	$(CC) $(CCOBJFLAGS) -o $@ $<
+	
 
 # Not a target:
 .SUFFIXES:
@@ -260,9 +282,15 @@ obj/main.o:
 #  File has not been updated.
 
 # Not a target:
+debug/smartField.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-28 22:21:10
+#  Last modified 2022-03-04 08:01:07
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -276,17 +304,57 @@ debug: debug/light-thing
 
 # Not a target:
 src/command.cpp:
+ 
 #  Implicit rule search has been done.
-#  Last modified 2022-01-08 09:42:25
+#  Last modified 2022-03-04 07:57:32
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
+obj/syncManager.o: src/syncManager.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `syncManager'
+#  Last modified 2022-03-04 07:59:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 42):
+	$(CC) $(CCOBJFLAGS) -o $@ $<
+	
+
+# Not a target:
+src/config.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-11-25 11:22:41
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+debug/device.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 default: makedir all
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+obj/smartField.o: src/smartField.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `smartField'
+#  Last modified 2022-03-04 07:59:18
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 42):
+	$(CC) $(CCOBJFLAGS) -o $@ $<
+	
 
 # Not a target:
 .DEFAULT:
@@ -300,13 +368,24 @@ debug/command.o:
 #  Modification time never checked.
 #  File has not been updated.
 
+obj/device.o: src/device.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `device'
+#  Last modified 2022-03-04 07:59:17
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 42):
+	$(CC) $(CCOBJFLAGS) -o $@ $<
+	
+
 makedir:
- 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 52):
+#  commands to execute (from `Makefile', line 53):
 	@mkdir -p $(BIN_PATH) $(OBJ_PATH) $(DBG_PATH)
 	
 
@@ -315,7 +394,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 62):
+#  commands to execute (from `Makefile', line 63):
 	@echo CLEAN $(CLEAN_LIST)
 	@rm -f $(CLEAN_LIST)
 	
@@ -326,42 +405,59 @@ debug/config.o:
 #  Modification time never checked.
 #  File has not been updated.
 
+# Not a target:
+src/main.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-19 12:21:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
 obj/command.o: src/command.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `command'
-#  Last modified 2022-01-08 09:32:55
+#  Last modified 2022-03-04 07:59:15
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/command.o
-# automatic
-# % := 
-# automatic
-# * := command
-# automatic
-# + := src/command.cpp
-# automatic
-# | := 
-# automatic
-# < := src/command.cpp
-# automatic
-# ^ := src/command.cpp
-# automatic
-# ? := src/command.cpp
+#  Successfully updated.
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
-#  commands to execute (from `Makefile', line 41):
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 42):
 	$(CC) $(CCOBJFLAGS) -o $@ $<
 	
 
 # Not a target:
-obj/config.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+src/syncManager.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-04 07:52:24
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/config.o: src/config.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `config'
+#  Last modified 2022-03-04 07:59:16
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 42):
+	$(CC) $(CCOBJFLAGS) -o $@ $<
+	
+
+# Not a target:
+src/smartField.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-18 07:25:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=19/1024=2%, Rehash=0, Collisions=2/54=4%
+# Load=30/1024=3%, Rehash=0, Collisions=2/86=2%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -373,6 +469,6 @@ obj/config.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Jan  8 09:42:48 2022
+# Finished Make data base on Sat Mar  5 08:25:32 2022
 
  

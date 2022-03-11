@@ -3,11 +3,15 @@
 
 #include "config.h"
 #include "device.h"
+#include "deviceContainer.h"
 #include <string>
 #include <curl/curl.h>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <memory>
+
+constexpr unsigned short deviceArraySize = 64;
+constexpr unsigned short deviceRefreshThreshold = 2;
 
 class Command
 {
@@ -28,21 +32,25 @@ class Command
   */
   bool waitForButtonPress();
 
-  /*
+  /**
   * @brief Attempts to automatically locate a hub if required and authenticate or initiate pairing if required.
   * @param N/A
   * @return true on success
   */
   bool connect();
 
-  std::vector<unsigned short> getDeviceVector();
-
   /**
    * @brief Collect device data for the given id if available
    * 
    * @param device id
    */
-  void getDeviceData(const unsigned int);
+  std::string getDeviceData(const unsigned short);
+
+  /**
+   * @brief 
+   * 
+   */
+  bool refreshDataFromDevice(const unsigned short);
 
   /**
   * @brief Initiate a http POST message.
@@ -63,6 +71,7 @@ class Command
 
   private:
   CURL * curl;
+
   CURLcode res;
 
   static size_t writeCallback(void *contents, size_t size, size_t nmemb, void *userp);
@@ -74,11 +83,13 @@ class Command
 
   std::shared_ptr<Config> mCfg;
 
-  // This stuff should be private
-  public:
   std::string readBuffer;
+
   boost::property_tree::ptree jsonReadBuffer;
-  Hue::Device deviceArray[63];
+  
+  public:
+  // Hue::Device deviceArray[deviceArraySize];
+  DeviceContainer deviceContainer[deviceArraySize];
 };
 
 #endif /* COMMAND_H */
