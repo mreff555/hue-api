@@ -9,7 +9,9 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <memory>
+
 constexpr unsigned short deviceArraySize = 64;
+constexpr unsigned short deviceRefreshThreshold = 2;
 
 class Command
 {
@@ -42,7 +44,13 @@ class Command
    * 
    * @param device id
    */
-  std::string getDeviceData(const unsigned int);
+  std::string getDeviceData(const unsigned short);
+
+  /**
+   * @brief 
+   * 
+   */
+  bool refreshDataFromDevice(const unsigned short);
 
   /**
   * @brief Initiate a http POST message.

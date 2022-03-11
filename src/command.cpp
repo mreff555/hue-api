@@ -121,7 +121,7 @@ bool Command::connect()
   return success;
 }
 
-std::string Command::getDeviceData(const unsigned int id)
+std::string Command::getDeviceData(const unsigned short id)
 {
   std::string returnString;
   readBuffer.clear();
@@ -219,6 +219,19 @@ std::string Command::getDeviceData(const unsigned int id)
   deviceContainer[id].setTimeStamp();
 
   return returnString;
+}
+
+bool Command::refreshDataFromDevice(const unsigned short id)
+{
+  bool success = false;
+  if((time(nullptr) - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
+  {
+    if(getDeviceData(id).find("Error") != std::string::npos)
+    {
+      success = true;
+    }
+  }
+  return success;
 }
 
 void Command::post(const std::string url, const std::string body)

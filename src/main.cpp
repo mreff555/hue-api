@@ -47,16 +47,19 @@ int main()
    */
   auto mgr = std::make_shared<SyncManager>(cmd, dev);
 
+  mgr->runEventLoop(terminate);
+
+
   // Hue::Xy xy(3,5);
 
-  cmd->deviceContainer[28].setName("Max's Room");
-  for(int i = 0; i < deviceArraySize; ++i)
-  {
-    std::cout << i << ": " 
-      << cmd->deviceContainer[i].getName() 
-      << " - on: " << cmd->deviceContainer[i].getData().state.on 
-      << "\t" << cmd->deviceContainer[i].getTimeStamp() << "\n";
-  }
+  // cmd->deviceContainer[28].setName("Max's Room");
+  // for(int i = 0; i < deviceArraySize; ++i)
+  // {
+  //   std::cout << i << ": " 
+  //     << cmd->deviceContainer[i].getName() 
+  //     << " - on: " << cmd->deviceContainer[i].getData().state.on 
+  //     << "\t" << cmd->deviceContainer[i].getTimeStamp() << "\n";
+  // }
   // std::cout << "Brightness: " << cmd->deviceArray[lightId].state.bri << "\n";
   // std::cout << "Hue: " << cmd->deviceArray[lightId].state.hue << "\n";
   // std::cout << "Saturation : " << cmd->deviceArray[lightId].state.sat << "\n";

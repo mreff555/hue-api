@@ -80,6 +80,13 @@
         "*.tcc": "cpp",
         "memory_resource": "cpp",
         "stop_token": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "__tree": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "typeindex": "cpp",
+        "unordered_set": "cpp",
+        "variant": "cpp"
     }
 }
