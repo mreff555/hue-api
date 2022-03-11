@@ -1,4 +1,5 @@
 #include "command.h"
+#include "deviceContainer.h"
 #include <string>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -19,6 +20,7 @@ Command::Command(std::shared_ptr<Config> _config) : mCfg(_config)
   for(int i = 0; i < deviceArraySize; ++i)
   {
     getDeviceData(i);
+
   }
 }
 
@@ -234,6 +236,9 @@ std::string Command::getDeviceData(const unsigned int id)
     );
     deviceContainer[id].setData(device);
   }
+
+  deviceContainer[id].setTimeStamp();
+
   return returnString;
 }
 
