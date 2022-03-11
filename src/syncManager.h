@@ -4,6 +4,8 @@
 #include "command.h"
 #include "device.h"
 
+constexpr unsigned short interval = 5;  // Seconds
+
 class SyncManager
 {
     public:

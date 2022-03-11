@@ -37,8 +37,6 @@ class Command
   */
   bool connect();
 
-  // std::vector<unsigned short> getDeviceVector();
-
   /**
    * @brief Collect device data for the given id if available
    * 
