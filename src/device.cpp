@@ -3,11 +3,7 @@
 #include <iostream>
 
 Hue::Xy::Xy(float _x, float _y)
-: x(_x), y(_y)
-{
-  // SmartField<float> x("abc", "def", _x);
-  // SmartField<float> y("abc", "def", _y);
-}
+: x(_x), y(_y) {}
 
 Hue::Xy::Xy() 
 : x(0.0), y(0.0) {}

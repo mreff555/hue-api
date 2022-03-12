@@ -3,8 +3,9 @@
 
 #include "command.h"
 #include "device.h"
+#include "timeUtil.h"
 
-constexpr unsigned short interval = 2;  // Seconds
+constexpr Utility::milliseconds interval = 250;
 
 class SyncManager
 {

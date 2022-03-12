@@ -2,7 +2,7 @@
 #define DEVICE_CONTAINER_H
 
 #include "device.h"
-#include <ctime>
+#include "timeUtil.h"
 #include <string>
 
 class DeviceContainer
@@ -24,7 +24,7 @@ class DeviceContainer
 
     void setData(const Hue::Device);
 
-    time_t getTimeStamp() const;
+    Utility::millisecondSinceEpoch getTimeStamp() const;
 
     void setTimeStamp();
 
@@ -35,9 +35,9 @@ class DeviceContainer
 
     Hue::Device device;
 
-    time_t timeStamp;
+    Utility::millisecondSinceEpoch timeStamp;
 
-    const time_t instantiationTime;
+    const Utility::millisecondSinceEpoch instantiationTime;
 };
 
 #endif /* DEVICE_CONTAINER_H */

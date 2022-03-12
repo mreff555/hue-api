@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "device.h"
+#include "timeUtil.h"
 #include "deviceContainer.h"
 #include <string>
 #include <curl/curl.h>
@@ -11,7 +12,8 @@
 #include <memory>
 
 constexpr unsigned short deviceArraySize = 64;
-constexpr unsigned short deviceRefreshThreshold = 2;
+constexpr Utility::milliseconds deviceRefreshThreshold = 2000;
+constexpr Utility::milliseconds waitForButtonPressPingTimeInterval = 500;
 
 class Command
 {

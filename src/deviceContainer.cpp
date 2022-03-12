@@ -1,7 +1,7 @@
 #include "deviceContainer.h"
 
 DeviceContainer::DeviceContainer() 
-: name("N/A"), description("N/A"), timeStamp(time(nullptr)), instantiationTime(timeStamp)
+: name("N/A"), description("N/A"), timeStamp(Utility::currentTimeInMilliseconds()), instantiationTime(timeStamp)
 {
 
 }
@@ -18,7 +18,7 @@ void DeviceContainer::setName(const std::string _name)
 
 std::string DeviceContainer::getDescription() const
 {
-
+    return description;
 }
 
 void DeviceContainer::setDescription(const std::string _description)
@@ -36,12 +36,12 @@ void DeviceContainer::setData(const Hue::Device _device)
     device = _device;
 }
 
-time_t DeviceContainer::getTimeStamp() const
+Utility::milliseconds DeviceContainer::getTimeStamp() const
 {
     return timeStamp;
 }
 
 void DeviceContainer::setTimeStamp()
 {
-    timeStamp = time(nullptr);
+    timeStamp = Utility::currentTimeInMilliseconds();
 }

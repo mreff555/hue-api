@@ -5,7 +5,6 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/optional.hpp>
 #include <thread>
-#include <chrono>
 #include <sstream>
 #include <iostream>
 #include <fcntl.h>
@@ -77,7 +76,7 @@ bool Command::waitForButtonPress()
         success = true;
         break;
       }
-      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+      Utility::sleepMilliseconds(waitForButtonPressPingTimeInterval);
     }
   }
   else // Everything appears to be good
@@ -224,7 +223,7 @@ std::string Command::getDeviceData(const unsigned short id)
 bool Command::refreshDataFromDevice(const unsigned short id)
 {
   bool success = false;
-  if((time(nullptr) - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
+  if((Utility::currentTimeInMilliseconds() - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold )
   {
     if(getDeviceData(id).find("Error") != std::string::npos)
     {
