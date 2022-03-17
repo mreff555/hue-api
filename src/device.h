@@ -5,6 +5,13 @@
 
 namespace Hue
 {
+    enum HueFields
+    {
+        STATE_BRI,
+        STATE_HUE,
+        STATE_SAT
+    };
+
     struct Xy
     {
         float x;
@@ -143,6 +150,7 @@ namespace Hue
             std::string);
         Device();
         ~Device() = default;
+        void initializeFieldMaps();
     };
 }
 #endif /* DEVICE_H */

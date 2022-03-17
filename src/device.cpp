@@ -49,10 +49,10 @@ Hue::StreamingCapabilities::StreamingCapabilities(bool _renderer, bool _proxy)
 Hue::StreamingCapabilities::StreamingCapabilities()
 : renderer(false), proxy(false) {}
 
-Hue:: Capabilities::Capabilities(bool _certified, ControlCapabilities _control, StreamingCapabilities _streaming)
+Hue::Capabilities::Capabilities(bool _certified, ControlCapabilities _control, StreamingCapabilities _streaming)
 : certified(_certified), control(_control), streaming(_streaming) {}
 
-Hue:: Capabilities::Capabilities()
+Hue::Capabilities::Capabilities()
 : certified(false), control(ControlCapabilities()), streaming(StreamingCapabilities()) {}
 
 Hue::StartUp::StartUp(std::string _mode, bool _configured)

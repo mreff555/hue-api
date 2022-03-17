@@ -5,7 +5,9 @@
 SyncManager::SyncManager(std::shared_ptr<Command>(_command), std::shared_ptr<Hue::Device>(_deviceState)) 
 : command(_command), deviceState(_deviceState)
 {
-
+    // Debug
+    Task tsk(6);
+    taskVector.push_back(tsk);
 }
 
 void SyncManager::runEventLoop(bool &terminate)
@@ -21,6 +23,13 @@ void SyncManager::runEventLoop(bool &terminate)
         for(int i = 0; i < deviceArraySize; ++i)
         {
             command->refreshDataFromDevice(i);
+        }
+
+        // Perform scheduled tasks
+        for(auto task : taskVector)
+        {
+            auto taskId = task.getId();
+            auto data = command->deviceContainer[taskId].getDataBuffer();
         }
 
         // DEBUG

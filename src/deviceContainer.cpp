@@ -31,6 +31,13 @@ Hue::Device DeviceContainer::getData() const
     return device;
 }
 
+std::shared_ptr<Hue::Device> DeviceContainer::getDataBuffer()
+{
+    auto devPtr = std::make_shared<Hue::Device>(device);
+    return devPtr;
+}
+
+
 void DeviceContainer::setData(const Hue::Device _device)
 {
     device = _device;
@@ -45,3 +52,8 @@ void DeviceContainer::setTimeStamp()
 {
     timeStamp = Utility::currentTimeInMilliseconds();
 }
+
+const std::map<Hue::HueFields, void *> fieldMap =
+{
+    //{Hue::STATE_BRI, device.state.bri}
+};

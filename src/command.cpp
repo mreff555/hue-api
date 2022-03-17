@@ -223,7 +223,7 @@ std::string Command::getDeviceData(const unsigned short id)
 bool Command::refreshDataFromDevice(const unsigned short id)
 {
   bool success = false;
-  if((Utility::currentTimeInMilliseconds() - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold )
+  if((Utility::currentTimeInMilliseconds() - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
   {
     if(getDeviceData(id).find("Error") != std::string::npos)
     {

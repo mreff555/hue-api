@@ -89,6 +89,7 @@ class Command
 
   boost::property_tree::ptree jsonReadBuffer;
   
+  // TODO: should not be public
   public:
   // Hue::Device deviceArray[deviceArraySize];
   DeviceContainer deviceContainer[deviceArraySize];
