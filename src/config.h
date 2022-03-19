@@ -118,6 +118,13 @@ class Config
    */
   uint64_t getTimestamp() const;
 
+  /**
+   * @brief Checks to make sure the input IPV4 address is properly formatted
+   * @param _ip IPV4 representation of a string
+   * @return true on valid, false on invalid
+   */
+  bool validIp(const std::string);
+
   private:
 
   std::string id;

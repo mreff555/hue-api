@@ -1,4 +1,5 @@
 #include "deviceContainer.h"
+#include <sstream>
 
 DeviceContainer::DeviceContainer() 
 : name("N/A"), description("N/A"), timeStamp(Utility::currentTimeInMilliseconds()), instantiationTime(timeStamp)
@@ -37,7 +38,6 @@ std::shared_ptr<Hue::Device> DeviceContainer::getDataBuffer()
     return devPtr;
 }
 
-
 void DeviceContainer::setData(const Hue::Device _device)
 {
     device = _device;
@@ -53,7 +53,7 @@ void DeviceContainer::setTimeStamp()
     timeStamp = Utility::currentTimeInMilliseconds();
 }
 
-const std::map<Hue::HueFields, void *> fieldMap =
+const std::map<Hue::HueFields, std::string> fieldMap =
 {
-    //{Hue::STATE_BRI, device.state.bri}
+    // {Hue::STATE_BRI, device.state.bri}
 };

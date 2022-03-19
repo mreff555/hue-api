@@ -17,7 +17,6 @@ namespace Utility {
         return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     }
 
-
     /**
      * @brief The current time in ISO8601 format at ZULU time.
      *
@@ -27,7 +26,6 @@ namespace Utility {
     {
         return formatMillisecondsSinceEpoch(currentTimeInMilliseconds());
     }
-
 
     /**
      * @brief The current time plus some number of milliseconds in ISO8601 format at ZULU time.

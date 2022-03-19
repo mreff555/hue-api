@@ -233,6 +233,21 @@ bool Command::refreshDataFromDevice(const unsigned short id)
   return success;
 }
 
+bool Command::setFieldAndSend(
+    const std::string _ip, 
+    const std::string _key,
+    const unsigned int _id,
+    const Hue::HueFields _hueField, 
+    std::string _value)
+{
+    bool success = false;
+    std::stringstream ss;
+    ss << "http://" << _ip << "/api/" << _key << "/lights/" << std::to_string(_id);
+    
+
+    return success;
+}
+
 void Command::post(const std::string url, const std::string body)
 {
   curl = curl_easy_init();

@@ -7,7 +7,7 @@
 #include <map>
 #include <memory>
 
-extern std::map<Hue::HueFields, int> FieldMap;
+extern std::map<Hue::HueFields, std::string> FieldMap;
 
 class DeviceContainer
 {

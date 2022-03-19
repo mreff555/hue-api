@@ -55,6 +55,19 @@ class Command
   bool refreshDataFromDevice(const unsigned short);
 
   /**
+   * @brief Set the Field And Send object
+   * 
+   * @return true 
+   * @return false 
+   */
+  bool setFieldAndSend(
+    const std::string, 
+    const std::string, 
+    const unsigned int, 
+    const Hue::HueFields, 
+    std::string);
+
+  /**
   * @brief Initiate a http POST message.
   * @param url
   * @param message body
