@@ -5,13 +5,41 @@ This project is very much in development so this readme will be frequently updat
 as features are added. The intention is to have a functional and easy to use c++ interface
 for hue products, with some possible added functionality.  Below are some of the implemented features and the todo list:
 
-Features:
+## Features:
 
-  - JSON Configuration file which can populate and save off up settings.  Could be used
+  - [X] JSON Configuration file which can populate and save off up settings.  Could be used
     for lighting settings as well
 
-  - Get and Post and Put methods implemented
+  - [X] Get and Post and Put methods implemented
 
-  - Auto-connect, hub IP retrieval and authentication (Testing in progress)
+  - [X] Auto-connect, hub IP retrieval and authentication (Testing in progress)
 
-  - Local name and descriptions for lights.
+  - [X] Local name and descriptions for lights.
+
+  - [ ] ncurses debug console
+
+  - [ ] web api
+
+## Prerequitites:
+
+  - Curl development libraries
+  - Boost Property Tree
+  - Boost Optional
+  - Boost JSON parser
+  - CMake (v3.8+)
+
+## Compilation and running:
+
+  1. Download and cd into hue-api directory
+  2. mkdir build
+  3. cd build
+  4. cmake ..
+  5. make
+  6. ./hue_server
+  7. If you do not have a configuration file with a valid key you will need to press
+     button on the HUE hub when prompted. Once this is complete the key should be saved
+     in the configuration file which by default will be saved unless the build directory
+     is removed.
+
+
+

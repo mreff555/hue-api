@@ -68,7 +68,8 @@ bool Command::waitForButtonPress()
     for(int i = 0; i < 60; ++i)
     {
       post(url, body);
-      boost::optional<std::string> username = jsonReadBuffer.get_optional<std::string>(".success.username");
+      boost::optional<std::string> username =
+        jsonReadBuffer.get_optional<std::string>(".success.username");
       if(username)
       {
         mCfg->setUsername(username.get());
