@@ -2,8 +2,12 @@
 #define DEVICE_CONTAINER_H
 
 #include "device.h"
-#include <ctime>
+#include "timeUtil.h"
 #include <string>
+#include <map>
+#include <memory>
+
+extern std::map<Hue::HueFields, std::string> FieldMap;
 
 class DeviceContainer
 {
@@ -22,22 +26,25 @@ class DeviceContainer
 
     Hue::Device getData() const;
 
+    std::shared_ptr<Hue::Device> getDataBuffer();
+
     void setData(const Hue::Device);
 
-    time_t getTimeStamp() const;
+    Utility::millisecondSinceEpoch getTimeStamp() const;
 
     void setTimeStamp();
 
-    private:
+    protected:
     std::string name;
 
     std::string description;
 
     Hue::Device device;
 
-    time_t timeStamp;
+    private:
+    Utility::millisecondSinceEpoch timeStamp;
 
-    const time_t instantiationTime;
+    const Utility::millisecondSinceEpoch instantiationTime;
 };
 
 #endif /* DEVICE_CONTAINER_H */

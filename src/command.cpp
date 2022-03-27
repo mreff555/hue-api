@@ -5,7 +5,6 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/optional.hpp>
 #include <thread>
-#include <chrono>
 #include <sstream>
 #include <iostream>
 #include <fcntl.h>
@@ -69,7 +68,8 @@ bool Command::waitForButtonPress()
     for(int i = 0; i < 60; ++i)
     {
       post(url, body);
-      boost::optional<std::string> username = jsonReadBuffer.get_optional<std::string>(".success.username");
+      boost::optional<std::string> username =
+        jsonReadBuffer.get_optional<std::string>(".success.username");
       if(username)
       {
         mCfg->setUsername(username.get());
@@ -77,7 +77,7 @@ bool Command::waitForButtonPress()
         success = true;
         break;
       }
-      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+      Utility::sleepMilliseconds(waitForButtonPressPingTimeInterval);
     }
   }
   else // Everything appears to be good
@@ -224,7 +224,7 @@ std::string Command::getDeviceData(const unsigned short id)
 bool Command::refreshDataFromDevice(const unsigned short id)
 {
   bool success = false;
-  if((time(nullptr) - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
+  if((Utility::currentTimeInMilliseconds() - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
   {
     if(getDeviceData(id).find("Error") != std::string::npos)
     {
@@ -232,6 +232,21 @@ bool Command::refreshDataFromDevice(const unsigned short id)
     }
   }
   return success;
+}
+
+bool Command::setFieldAndSend(
+    const std::string _ip, 
+    const std::string _key,
+    const unsigned int _id,
+    const Hue::HueFields _hueField, 
+    std::string _value)
+{
+    bool success = false;
+    std::stringstream ss;
+    ss << "http://" << _ip << "/api/" << _key << "/lights/" << std::to_string(_id);
+    
+
+    return success;
 }
 
 void Command::post(const std::string url, const std::string body)

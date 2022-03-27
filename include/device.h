@@ -1,18 +1,21 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
-#include "smartField.h"
-#include "smartField.cpp"
 #include <string>
 
 namespace Hue
 {
+    enum HueFields
+    {
+        STATE_BRI,
+        STATE_HUE,
+        STATE_SAT
+    };
+
     struct Xy
     {
         float x;
         float y;
-        // SmartField<float> x(std::string, std::string);
-        // SmartField<float> y(std::string, std::string);
         Xy(float, float);
         Xy();
         ~Xy() = default;
@@ -147,6 +150,7 @@ namespace Hue
             std::string);
         Device();
         ~Device() = default;
+        void initializeFieldMaps();
     };
 }
 #endif /* DEVICE_H */

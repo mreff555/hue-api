@@ -3,11 +3,7 @@
 #include <iostream>
 
 Hue::Xy::Xy(float _x, float _y)
-: x(_x), y(_y)
-{
-  // SmartField<float> x("abc", "def", _x);
-  // SmartField<float> y("abc", "def", _y);
-}
+: x(_x), y(_y) {}
 
 Hue::Xy::Xy() 
 : x(0.0), y(0.0) {}
@@ -53,10 +49,10 @@ Hue::StreamingCapabilities::StreamingCapabilities(bool _renderer, bool _proxy)
 Hue::StreamingCapabilities::StreamingCapabilities()
 : renderer(false), proxy(false) {}
 
-Hue:: Capabilities::Capabilities(bool _certified, ControlCapabilities _control, StreamingCapabilities _streaming)
+Hue::Capabilities::Capabilities(bool _certified, ControlCapabilities _control, StreamingCapabilities _streaming)
 : certified(_certified), control(_control), streaming(_streaming) {}
 
-Hue:: Capabilities::Capabilities()
+Hue::Capabilities::Capabilities()
 : certified(false), control(ControlCapabilities()), streaming(StreamingCapabilities()) {}
 
 Hue::StartUp::StartUp(std::string _mode, bool _configured)

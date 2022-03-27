@@ -1,24 +1,21 @@
 #include "syncManager.h"
-#include "smartField.h"
-#include <thread>
+#include "timeUtil.h"
 #include <iostream>
-#include <chrono>
-
-// DEBUG
-// #include <ctime>
 
 SyncManager::SyncManager(std::shared_ptr<Command>(_command), std::shared_ptr<Hue::Device>(_deviceState)) 
 : command(_command), deviceState(_deviceState)
 {
-
+    // Debug
+    Task tsk(6);
+    taskVector.push_back(tsk);
 }
 
 void SyncManager::runEventLoop(bool &terminate)
 {
 
-    // //Debug
-    // constexpr unsigned short lightnum = 6;
-    // command->deviceContainer[lightnum].setName("Living Room 1");
+    //Debug
+    constexpr unsigned short lightnum = 6;
+    command->deviceContainer[lightnum].setName("Living Room 1");
 
     while(!terminate)
     {
@@ -28,13 +25,19 @@ void SyncManager::runEventLoop(bool &terminate)
             command->refreshDataFromDevice(i);
         }
 
-        // // DEBUG
-        // time_t ts = command->deviceContainer->getTimeStamp();
-        // std::cout << std::string(asctime(localtime(&ts)))
-        //     << " - " << command->deviceContainer[lightnum].getName()
-        //     << " - Status: " << command->deviceContainer[lightnum].getData().state.on << "\n";
+        // Perform scheduled tasks
+        for(auto task : taskVector)
+        {
+            auto taskId = task.getId();
+            auto data = command->deviceContainer[taskId].getDataBuffer();
+        }
 
-        std::this_thread::sleep_for(std::chrono::seconds(interval));
+        // DEBUG
+        std::cout << Utility::currentTime()
+            << " - " << command->deviceContainer[lightnum].getName()
+            << " - Status: " << command->deviceContainer[lightnum].getData().state.on << "\n";
+
+        Utility::sleepMilliseconds(interval);
     }
 }
 

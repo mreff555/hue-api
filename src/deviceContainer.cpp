@@ -1,7 +1,8 @@
 #include "deviceContainer.h"
+#include <sstream>
 
 DeviceContainer::DeviceContainer() 
-: name("N/A"), description("N/A"), timeStamp(time(nullptr)), instantiationTime(timeStamp)
+: name("N/A"), description("N/A"), timeStamp(Utility::currentTimeInMilliseconds()), instantiationTime(timeStamp)
 {
 
 }
@@ -18,7 +19,7 @@ void DeviceContainer::setName(const std::string _name)
 
 std::string DeviceContainer::getDescription() const
 {
-
+    return description;
 }
 
 void DeviceContainer::setDescription(const std::string _description)
@@ -31,17 +32,28 @@ Hue::Device DeviceContainer::getData() const
     return device;
 }
 
+std::shared_ptr<Hue::Device> DeviceContainer::getDataBuffer()
+{
+    auto devPtr = std::make_shared<Hue::Device>(device);
+    return devPtr;
+}
+
 void DeviceContainer::setData(const Hue::Device _device)
 {
     device = _device;
 }
 
-time_t DeviceContainer::getTimeStamp() const
+Utility::milliseconds DeviceContainer::getTimeStamp() const
 {
     return timeStamp;
 }
 
 void DeviceContainer::setTimeStamp()
 {
-    timeStamp = time(nullptr);
+    timeStamp = Utility::currentTimeInMilliseconds();
 }
+
+const std::map<Hue::HueFields, std::string> fieldMap =
+{
+    // {Hue::STATE_BRI, device.state.bri}
+};

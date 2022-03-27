@@ -6,6 +6,7 @@
 #include <vector>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include <arpa/inet.h>
 
 Config::Config()
 {
@@ -99,9 +100,13 @@ std::string Config::getInternalIpAddress() const
   return this->internalIpAddress;
 }
 
-void Config::setInternalIpAddress(const std::string value)
+void Config::setInternalIpAddress(const std::string _value)
 {
-  this->internalIpAddress = value;
+  this->internalIpAddress = "0.0.0.0";
+  if(validIp(_value))
+  {
+    this->internalIpAddress = _value;
+  }
 }
 
 std::string Config::getUsername() const
@@ -138,3 +143,10 @@ uint64_t Config::getTimestamp() const
 {
   return this->timestamp;
 };
+
+bool Config::validIp(const std::string _ip)
+{
+  unsigned char buf[sizeof(struct in6_addr)];
+	return inet_pton(AF_INET, _ip.c_str(), buf);
+}
+

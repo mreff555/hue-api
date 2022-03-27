@@ -3,8 +3,11 @@
 
 #include "command.h"
 #include "device.h"
+#include "timeUtil.h"
+#include "task.h"
+#include <vector>
 
-constexpr unsigned short interval = 2;  // Seconds
+constexpr Utility::milliseconds interval = 250;
 
 class SyncManager
 {
@@ -18,6 +21,8 @@ class SyncManager
     private:
     std::shared_ptr<Command> command;
     std::shared_ptr<Hue::Device> deviceState;
+
+    std::vector<Task> taskVector;
 };
 
 #endif /* SYNC_MANAGER_H */
