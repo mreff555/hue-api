@@ -2,6 +2,8 @@
 #include "command.h"
 #include "device.h"
 #include "syncManager.h"
+#include "console.h"
+#include <thread>
 #include <memory>
 #include <iostream>
 #include <signal.h>
@@ -45,10 +47,20 @@ int main()
    * @brief Responsible for the state management of all devices
    * 
    */
-  auto mgr = std::make_shared<SyncManager>(cmd, dev);
+  auto syncManager = std::make_shared<SyncManager>(cmd, dev);
 
-  mgr->runEventLoop(terminate);
+  /**
+   * @brief A semi-graphical management console using notcurses
+   * 
+   */
+  auto tuiManagementConsole = std::make_shared<Console>(); 
 
+  std::thread syncManagerThread(&SyncManager::runEventLoop, syncManager, std::ref(terminate));
+  std::thread tuiManagementConsoleThread(&Console::runEventLoop, tuiManagementConsole, std::ref(terminate));
+
+  tuiManagementConsoleThread.join();
+  syncManagerThread.join();
+  
 
   // Hue::Xy xy(3,5);
 

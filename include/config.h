@@ -4,7 +4,7 @@
 #include <string>
 #include <cstdint>
 
-#define DEFAULT_CONFIG_FILE ".config.json"
+#define DEFAULT_CONFIG_FILE "../config.json"
 
 class Config 
 {

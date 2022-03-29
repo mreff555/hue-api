@@ -72,3 +72,5 @@ Hue::Device::Device(State _state, SwUpdate _swUpdate, std::string _type, std::st
 
 Hue::Device::Device()
 : state(State()), swupdate(SwUpdate()), type(""), name(""), modelid(""), manufacturername(""), productname(""), capabilities(Capabilities()), config(Config()), uniqueid(""), swversion(""), swconfigid(""), productid("") {}
+
+// Hue::fieldMap[STATE_BRI] = Hue::FieldStruct({"state", "whatever"});

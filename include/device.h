@@ -2,16 +2,10 @@
 #define DEVICE_H
 
 #include <string>
+#include <map>
 
 namespace Hue
 {
-    enum HueFields
-    {
-        STATE_BRI,
-        STATE_HUE,
-        STATE_SAT
-    };
-
     struct Xy
     {
         float x;
@@ -152,5 +146,20 @@ namespace Hue
         ~Device() = default;
         void initializeFieldMaps();
     };
+
+    enum HueFields
+    {
+        STATE_BRI,
+        STATE_HUE,
+        STATE_SAT
+    };
+
+    struct FieldStruct
+    {
+        std::string catagory;
+        std::string body;
+    };
+    
+    // std::map<HueFields, int> fieldMap;
 }
 #endif /* DEVICE_H */
