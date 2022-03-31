@@ -1,5 +1,4 @@
 #include "command.h"
-#include "deviceContainer.h"
 #include <string>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -215,7 +214,7 @@ std::string Command::getDeviceData(const unsigned short id)
     );
     deviceContainer[id].setData(device);
   }
-
+  deviceContainer[id].setId(id);
   deviceContainer[id].setTimeStamp();
 
   return returnString;
@@ -238,13 +237,21 @@ bool Command::setFieldAndSend(
     const std::string _ip, 
     const std::string _key,
     const unsigned int _id,
-    const Hue::HueFields _hueField, 
+    const Hue::HueFieldEnum _hueField, 
     std::string _value)
 {
     bool success = false;
+
+    std::string category = deviceContainer[_id].getCategoryStringFromHueEnum(_hueField);
+    std::string body = deviceContainer[_id].getBodyStringFromHueEnum(_hueField, _value);
     std::stringstream ss;
-    ss << "http://" << _ip << "/api/" << _key << "/lights/" << std::to_string(_id);
+    ss << "http://" << _ip << "/api/" << _key << "/lights/" << std::to_string(_id) << "/" << category;
+    std::cout <<"test\n";
     
+    // DEBUG
+    std::cout << "Command::setFieldAndSend DEBUG\t-\turl: " << ss.str() << "\tBody:\t" << body << "\n";
+    
+    put(ss.str(), body);
 
     return success;
 }

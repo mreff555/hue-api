@@ -3,6 +3,10 @@
 #include "device.h"
 #include "syncManager.h"
 #include "console.h"
+
+//DEBUG
+#include "timeUtil.h"
+
 #include <thread>
 #include <memory>
 #include <iostream>
@@ -54,6 +58,18 @@ int main()
    * 
    */
   auto tuiManagementConsole = std::make_shared<Console>(); 
+
+  // DEBUG
+  cmd->setFieldAndSend(cfg->getInternalIpAddress(), cfg->getUsername(), 6, Hue::STATE_ON, std::string("true"));
+  Utility::sleepSeconds(2);
+  cmd->setFieldAndSend(cfg->getInternalIpAddress(), cfg->getUsername(), 6, Hue::STATE_HUE, std::string("120"));
+  Utility::sleepSeconds(2);
+  cmd->setFieldAndSend(cfg->getInternalIpAddress(), cfg->getUsername(), 6, Hue::STATE_HUE, std::string("240"));
+  Utility::sleepSeconds(2);
+    cmd->setFieldAndSend(cfg->getInternalIpAddress(), cfg->getUsername(), 6, Hue::STATE_HUE, std::string("0"));
+  Utility::sleepSeconds(2);
+  cmd->setFieldAndSend(cfg->getInternalIpAddress(), cfg->getUsername(), 6, Hue::STATE_ON, std::string("false"));
+  // end DEBUG
 
   std::thread syncManagerThread(&SyncManager::runEventLoop, syncManager, std::ref(terminate));
   std::thread tuiManagementConsoleThread(&Console::runEventLoop, tuiManagementConsole, std::ref(terminate));

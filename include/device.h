@@ -147,19 +147,27 @@ namespace Hue
         void initializeFieldMaps();
     };
 
-    enum HueFields
+    enum HueFieldEnum
     {
+        STATE_ON,
         STATE_BRI,
         STATE_HUE,
-        STATE_SAT
+        STATE_SAT,
+        STATE_XY_X,
+        STATE_XY_Y,
+        STATE_EFFECT,
+        STATE_CT,
+        STATE_COLORMODE,
+        STATE_REACHABLE
     };
 
     struct FieldStruct
     {
-        std::string catagory;
+        std::string category;
+        std::string fieldName;
         std::string body;
     };
-    
-    // std::map<HueFields, int> fieldMap;
+
+    typedef std::map<HueFieldEnum, FieldStruct> FieldMap;
 }
 #endif /* DEVICE_H */

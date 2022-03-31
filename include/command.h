@@ -2,8 +2,6 @@
 #define COMMAND_H
 
 #include "config.h"
-#include "device.h"
-#include "timeUtil.h"
 #include "deviceContainer.h"
 #include <string>
 #include <curl/curl.h>
@@ -64,7 +62,7 @@ class Command
     const std::string, 
     const std::string, 
     const unsigned int, 
-    const Hue::HueFields, 
+    const Hue::HueFieldEnum, 
     std::string);
 
   /**

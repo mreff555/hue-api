@@ -4,10 +4,10 @@
 #include "device.h"
 #include "timeUtil.h"
 #include <string>
-#include <map>
 #include <memory>
+#include <sstream>
 
-extern std::map<Hue::HueFields, std::string> FieldMap;
+// extern std::map<Hue::HueFields, std::string> FieldMap;
 
 class DeviceContainer
 {
@@ -30,11 +30,24 @@ class DeviceContainer
 
     void setData(const Hue::Device);
 
-    Utility::millisecondSinceEpoch getTimeStamp() const;
+    void setId(short);
 
+    short getId() const;
+
+    Utility::millisecondSinceEpoch getTimeStamp() const;
+    
     void setTimeStamp();
 
+    std::string getCategoryStringFromHueEnum(Hue::HueFieldEnum _field) const;
+
+    std::string getFieldStringFromHueEnum(Hue::HueFieldEnum) const;
+
+    std::string getBodyStringFromHueEnum(Hue::HueFieldEnum, std::string) const;
+
     protected:
+    template<typename valueT>
+    bool setDeviceField(Hue::HueFieldEnum, valueT);
+
     std::string name;
 
     std::string description;
@@ -42,9 +55,13 @@ class DeviceContainer
     Hue::Device device;
 
     private:
+    short id;
+
     Utility::millisecondSinceEpoch timeStamp;
 
     const Utility::millisecondSinceEpoch instantiationTime;
+
+    Hue::FieldMap fieldMap;
 };
 
 #endif /* DEVICE_CONTAINER_H */
