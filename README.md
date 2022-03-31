@@ -18,6 +18,8 @@ for hue products, with some possible added functionality.  Below are some of the
 
   - [ ] Add validation checks for value ranges (https://devblogs.microsoft.com/oldnewthing/20151013-00/?p=91371)
 
+  - [ ] Fix multi-thread sig-trap bug.  All threads not terminating in a timely manner.
+  
   - [ ] Re-factor simple names and give good descriptions
 
   - [ ] Modify String Utility to detect floating point.
