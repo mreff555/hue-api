@@ -6,15 +6,6 @@
 
 namespace Hue
 {
-    struct Xy
-    {
-        float x;
-        float y;
-        Xy(float, float);
-        Xy();
-        ~Xy() = default;
-    };
-
     struct State
     {
         bool on;
@@ -22,24 +13,24 @@ namespace Hue
         unsigned hue;
         unsigned sat;
         std::string effect;
-        Xy xy;
+        float xy[2];
         unsigned ct;
         std::string alert;
         std::string colormode;
         std::string mode;
         bool reachable;
         State(
-            bool, 
-            unsigned, 
-            unsigned, 
-            unsigned, 
-            std::string, 
-            Xy, 
-            unsigned, 
-            std::string, 
-            std::string, 
-            std::string, 
-            bool);
+            bool _on, 
+            unsigned _bri, 
+            unsigned _hue, 
+            unsigned _sat, 
+            std::string _effect, 
+            float _xy[2], 
+            unsigned _ct, 
+            std::string _alert, 
+            std::string _colormode, 
+            std::string _mode, 
+            bool _reachable);
         State();
         ~State() = default;
     };
@@ -48,7 +39,7 @@ namespace Hue
     {
         std::string state;
         std::string lastInstall;
-        SwUpdate(std::string, std::string);
+        SwUpdate(std::string _state, std::string _lastInstall);
         SwUpdate();
         ~SwUpdate() = default;
     };
@@ -57,7 +48,7 @@ namespace Hue
     {
         unsigned min;
         unsigned max;
-        Ct(unsigned, unsigned);
+        Ct(unsigned _min, unsigned _max);
         Ct();
         ~Ct() = default;
     };
@@ -69,7 +60,12 @@ namespace Hue
         std::string colorgamuttype;
         float colorgamut[3][2];
         Ct ct;
-        ControlCapabilities(unsigned, unsigned, std::string, float[3][2], Ct);
+        ControlCapabilities(
+            unsigned _mindimlevel,
+            unsigned _maxlumen,
+            std::string _colorgamuttype,
+            float _colorgamut[3][2],
+            Ct _ct);
         ControlCapabilities();
         ~ControlCapabilities() = default;
     };
@@ -78,7 +74,7 @@ namespace Hue
     {
         bool renderer;
         bool proxy;
-        StreamingCapabilities(bool, bool);
+        StreamingCapabilities(bool _renderer, bool _proxy);
         StreamingCapabilities();
         ~StreamingCapabilities() = default;
     };
@@ -88,7 +84,10 @@ namespace Hue
         bool certified;
         ControlCapabilities control;
         StreamingCapabilities streaming;
-        Capabilities(bool, ControlCapabilities, StreamingCapabilities);
+        Capabilities(
+            bool _certified,
+            ControlCapabilities _control,
+            StreamingCapabilities _streaming);
         Capabilities();
         ~Capabilities() = default;
     };
@@ -97,7 +96,7 @@ namespace Hue
     {
         std::string mode;
         bool configured;
-        StartUp(std::string, bool);
+        StartUp(std::string _mode, bool _configured);
         StartUp();
         ~StartUp() = default;
     };
@@ -108,7 +107,11 @@ namespace Hue
         std::string function;
         std::string direction;
         StartUp startUp;
-        Config(std::string, std::string, std::string, StartUp);
+        Config(
+            std::string _archtype, 
+            std::string _function,
+            std::string _direction,
+            StartUp _startUp);
         Config();
         ~Config() = default;
     };
@@ -129,19 +132,19 @@ namespace Hue
         std::string swconfigid;
         std::string productid;
         Device(
-            State, 
-            SwUpdate, 
-            std::string, 
-            std::string, 
-            std::string, 
-            std::string, 
-            std::string, 
-            Capabilities, 
-            Config, 
-            std::string, 
-            std::string, 
-            std::string, 
-            std::string);
+            State _state, 
+            SwUpdate _swupdate, 
+            std::string _type, 
+            std::string _name, 
+            std::string _modelid, 
+            std::string _manufacturername, 
+            std::string _productname, 
+            Capabilities _capabilities, 
+            Config _config, 
+            std::string _uniqueid, 
+            std::string _swversion, 
+            std::string _swconfigid, 
+            std::string _productid);
         Device();
         ~Device() = default;
         void initializeFieldMaps();
@@ -153,12 +156,36 @@ namespace Hue
         STATE_BRI,
         STATE_HUE,
         STATE_SAT,
-        STATE_XY_X,
-        STATE_XY_Y,
+        STATE_XY,
         STATE_EFFECT,
         STATE_CT,
         STATE_COLORMODE,
-        STATE_REACHABLE
+        STATE_REACHABLE,
+        SWUPDATE_STATE,
+        SWUPDATE_INSTALL,
+        TYPE,
+        NAME,
+        MODELID,
+        MANUFACTURERNAME,
+        PRODUCTNAME,
+        CAPABILITIES_CERTIFIED,
+        CAPABILITIES_CONTROL_MINDIMLEVEL,
+        CAPABILITIES_CONTROL_MAXLUMEN,
+        CAPABILITIES_CONTROL_COLORGAMUTTYPE,
+        CAPABILITIES_CONTROL_COLORGAMUT,
+        CAPABILITIES_CONTROL_CT_MIN,
+        CAPABILITIES_CONTROL_CT_MAX,
+        CAPABILITIES_STREAMING_RENDER,
+        CAPABILITIES_STREAMING_PROXY,
+        CONFIG_ARCHTYPE,
+        CONFIG_FUNCTION,
+        CONFIG_DIRECTION,
+        CONFIG_STARTUP_MODE,
+        CONFIG_STARTUP_CONFIGURED,
+        UNIQUEID,
+        SWVERSION,
+        SWCONFIGID,
+        PRODUCTID
     };
 
     struct FieldStruct

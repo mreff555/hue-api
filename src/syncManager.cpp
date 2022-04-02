@@ -32,10 +32,10 @@ void SyncManager::runEventLoop(bool &terminate)
             auto data = command->deviceContainer[taskId].getDataBuffer();
         }
 
-        // DEBUG
-        std::cout << Utility::currentTime()
-            << " - " << command->deviceContainer[lightnum].getName()
-            << " - Status: " << command->deviceContainer[lightnum].getData().state.on << "\n";
+        // // DEBUG
+        // std::cout << Utility::currentTime()
+        //     << " - " << command->deviceContainer[lightnum].getName()
+        //     << " - Status: " << command->deviceContainer[lightnum].getData().state.on << "\n";
 
         Utility::sleepMilliseconds(interval);
     }

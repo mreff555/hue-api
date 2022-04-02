@@ -45,8 +45,6 @@ class DeviceContainer
     std::string getBodyStringFromHueEnum(Hue::HueFieldEnum, std::string) const;
 
     protected:
-    template<typename valueT>
-    bool setDeviceField(Hue::HueFieldEnum, valueT);
 
     std::string name;
 

@@ -20,35 +20,60 @@ class Command
 
   virtual ~Command();
 
-  bool unauthorizedResponse();
-
-  bool findHubIp();
+  /**
+   * @brief Turn the specified light on/off
+   * 
+   * @param _lightId value representing a light RANGE [0 - 63]
+   * @param _on [DEFAULT = true]
+   */
+  void setLightOn(const unsigned short _lightId, bool _on = true);
 
   /**
-  * @brief Waits 30 seconds for a button press
-  * @param N/A
-  * @param message body
-  * @return true on success
-  */
-  bool waitForButtonPress();
+   * @brief Set the brightness for the specified light
+   * 
+   * @param _lightId 
+   * @param _value positive integer RANGE [0 - 254]
+   * 
+   * @return true on success
+   */
+  bool setLightBrightness(const unsigned short _lightId, const unsigned short _value);
 
   /**
-  * @brief Attempts to automatically locate a hub if required and authenticate or initiate pairing if required.
-  * @param N/A
-  * @return true on success
-  */
-  bool connect();
+   * @brief Set the hue for the specified light
+   * 
+   * @param _lightId 
+   * @param _value positive integer RANGE [0 - 65535]
+   * 
+   * @return true on success
+   */
+  bool setLightHue(const unsigned short _lightId, const unsigned short _value);
 
   /**
-   * @brief Collect device data for the given id if available
+   * @brief Set the saturation for the specified light
+   * 
+   * @param _lightId 
+   * @param _value positive integer RANGE [0 - 254]
+   * 
+   * @return true on success
+   */
+  bool setLightSaturation(const unsigned short _lightId, const unsigned short _value);
+
+  /**
+   * @brief Set the color for the specified light by X/Y coordinates
+   * 
+   * @param _lightId 
+   * @param _x RANGE [0 - 1]
+   * @param _y RANGE [0 - 1]
+   * 
+   * @return true on success
+   */
+  bool setLightColorXY(const unsigned short _lightId, const float _x, float _y);
+
+  /**
+   * @brief if the "deviceRefreshThreshold" has been exceeded, device data will be refreshed
    * 
    * @param device id
-   */
-  std::string getDeviceData(const unsigned short);
-
-  /**
-   * @brief 
-   * 
+   * @return true on success
    */
   bool refreshDataFromDevice(const unsigned short);
 
@@ -65,8 +90,42 @@ class Command
     const Hue::HueFieldEnum, 
     std::string);
 
+  // private:
+  bool unauthorizedResponse();
+
   /**
-  * @brief Initiate a http POST message.
+   * @brief Attempts to retrieve the local hub ip address using a GET call to https://discovery.meethue.com and save the value off to the current configuration
+   * @return true if a not empty value is returned
+   */
+  bool findHubIp();
+
+  /**
+  * @brief Waits 30 seconds for a button press
+  * 
+  * @param N/A
+  * @param message body
+  * @return true on success
+  */
+  bool waitForButtonPress();
+
+  /**
+  * @brief Attempts to automatically locate a hub if required and authenticate or initiate pairing if required.
+  * 
+  * @param N/A
+  * @return true on success
+  */
+  bool connect();
+
+  /**
+   * @brief Collect device data for the given id if available
+   * 
+   * @param device id
+   * @return On Error, will return error string, otherwise nothing.
+   */
+  std::string getDeviceData(const unsigned short);
+
+  /**
+  * @brief Perform a curl POST message.
   * @param url
   * @param message body
   * @return N/A
@@ -74,15 +133,20 @@ class Command
   void post(const std::string, const std::string);
 
   /**
-  * @brief Initiate a http GET message.
+  * @brief Perform a curl GET message.
   * @param url
   * @return N/A
   */
   void get(const std::string);
 
+  /**
+   * @brief Perform a curl PUT operation
+   * 
+   * @param url
+   * @param body 
+   */
   void put(const std::string url, const std::string body);
 
-  private:
   CURL * curl;
 
   CURLcode res;

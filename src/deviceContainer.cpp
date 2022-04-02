@@ -1,5 +1,6 @@
 #include "deviceContainer.h"
 #include "stringUtil.h"
+#include <iostream>
 
 using namespace Hue;
 
@@ -10,12 +11,36 @@ fieldMap({
     {STATE_BRI, {"state", "bri", "false"}},
     {STATE_HUE, {"state", "hue", "false"}},
     {STATE_SAT, {"state", "sat", "false"}},
-    {STATE_XY_X, {"state", "xy.x", "false"}},
-    {STATE_XY_Y, {"state", "xy.y", "false"}},
+    {STATE_XY, {"state", "xy", "[0,0]"}},
     {STATE_EFFECT, {"state", "effect", "false"}},
     {STATE_CT, {"state", "ct", "false"}},
     {STATE_COLORMODE, {"state", "colormode", "false"}},
-    {STATE_REACHABLE, {"state", "reachable", "false"}}
+    {STATE_REACHABLE, {"state", "reachable", "false"}},
+    {SWUPDATE_STATE, {"swupdate", "state", ""}},
+    {SWUPDATE_INSTALL, {"swupdate", "install", ""}},
+    {TYPE, {"", "type", ""}},
+    {NAME, {"", "name", ""}},
+    {MODELID, {"", "", ""}},
+    {MANUFACTURERNAME, {"", "manufacturername", ""}},
+    {PRODUCTNAME, {"", "productname", ""}},
+    {CAPABILITIES_CERTIFIED, {"", "", ""}},
+    {CAPABILITIES_CONTROL_MINDIMLEVEL, {"", "", ""}},
+    {CAPABILITIES_CONTROL_MAXLUMEN, {"", "", ""}},
+    {CAPABILITIES_CONTROL_COLORGAMUTTYPE, {"", "", ""}},
+    {CAPABILITIES_CONTROL_COLORGAMUT, {"", "", ""}},
+    {CAPABILITIES_CONTROL_CT_MIN, {"", "", ""}},
+    {CAPABILITIES_CONTROL_CT_MAX, {"", "", ""}},
+    {CAPABILITIES_STREAMING_RENDER, {"", "", ""}},
+    {CAPABILITIES_STREAMING_PROXY , {"", "", ""}},
+    {CONFIG_ARCHTYPE, {"", "", ""}},
+    {CONFIG_FUNCTION, {"", "", ""}},
+    {CONFIG_DIRECTION, {"", "", ""}},
+    {CONFIG_STARTUP_MODE, {"", "", ""}},
+    {CONFIG_STARTUP_CONFIGURED, {"", "", ""}},
+    {UNIQUEID, {"", "uniqueid", ""}},
+    {SWVERSION, {"", "swversion", ""}},
+    {SWCONFIGID, {"", "swconfigid", ""}},
+    {PRODUCTID, {"", "productid", ""}},
 }) {}
 
 std::string DeviceContainer::getName() const
@@ -88,7 +113,10 @@ std::string DeviceContainer::getBodyStringFromHueEnum(Hue::HueFieldEnum _field, 
 {
     // TODO: Definately need more some error checking here.
     std::stringstream bodyValue;
-    if(_value != "true" && _value != "false" && !Utility::is_number(_value))
+    if(_value != "true" 
+        && _value != "false" 
+        && !Utility::is_number(_value)
+        && _value.find('['))
     {
         bodyValue << "\"" << _value << "\"";
         _value = bodyValue.str();
@@ -97,13 +125,4 @@ std::string DeviceContainer::getBodyStringFromHueEnum(Hue::HueFieldEnum _field, 
     std::stringstream body;
     body << "{\"" << fieldMap.at(_field).fieldName << "\":" << _value << "}";
     return body.str();
-}
-
-template<typename valueT>
-bool DeviceContainer::setDeviceField(Hue::HueFieldEnum _field, valueT _value)
-{
-    // std::cout << fieldMap[_field].catagory << "\n";
-    //std::stringstream ss;
-    //ss << "{\"" << fieldMap[_field].catagory << "\":\"" <<  std::to_string(_value) << "\"}"
-    //fieldMap[_field].body = 
 }
