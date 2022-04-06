@@ -1,6 +1,7 @@
 #ifndef SYNC_MANAGER_H
 #define SYNC_MANAGER_H
 
+#include "config.h"
 #include "command.h"
 #include "device.h"
 #include "timeUtil.h"

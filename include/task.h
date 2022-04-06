@@ -2,39 +2,26 @@
 #define TASK_H
 
 #include "deviceContainer.h"
+#include <string>
 #include <cstdint>
-
-union Value
-{
-    double floatingPoint;
-
-    int64_t integer;
-};
-
-union Rate
-{
-    double floatingPoint;
-
-    int64_t integer;
-};
 
 class Task : public DeviceContainer
 {
     public:
-    Task(const unsigned short);
+    // Task(const unsigned short);
 
-    Task(const unsigned short, const Value, const Rate);
+    Task(const Hue::HueFieldEnum, const unsigned short, const std::string);
 
     virtual ~Task() = default;
 
     unsigned short getId() const;
 
     private:
+    const Hue::HueFieldEnum typeEnum;
+
     const unsigned short id;
 
-    Value value;
-
-    Rate rate;
+    const std::string value;
 
     void* field;
 };

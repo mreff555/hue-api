@@ -2,11 +2,14 @@
 #include "timeUtil.h"
 #include <iostream>
 
-SyncManager::SyncManager(std::shared_ptr<Command>(_command), std::shared_ptr<Hue::Device>(_deviceState)) 
-: command(_command), deviceState(_deviceState)
+SyncManager::SyncManager(
+    std::shared_ptr<Command>(_command), 
+    std::shared_ptr<Hue::Device>(_deviceState)) 
+: command(_command), 
+deviceState(_deviceState)
 {
     // Debug
-    Task tsk(6);
+    Task tsk(Hue::STATE_ON, 6, "true");
     taskVector.push_back(tsk);
 }
 
@@ -14,8 +17,8 @@ void SyncManager::runEventLoop(bool &terminate)
 {
 
     //Debug
-    constexpr unsigned short lightnum = 6;
-    command->deviceContainer[lightnum].setName("Living Room 1");
+    // constexpr unsigned short lightnum = 6;
+    // command->deviceContainer[lightnum].setName("Living Room 1");
 
     while(!terminate)
     {
@@ -29,7 +32,8 @@ void SyncManager::runEventLoop(bool &terminate)
         for(auto task : taskVector)
         {
             auto taskId = task.getId();
-            auto data = command->deviceContainer[taskId].getDataBuffer();
+            command->
+            //auto data = command->deviceContainer[taskId].getDataBuffer();
         }
 
         // // DEBUG

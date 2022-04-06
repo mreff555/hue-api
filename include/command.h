@@ -90,7 +90,13 @@ class Command
     const Hue::HueFieldEnum, 
     std::string);
 
-  // private:
+private:
+  /**
+   * @brief Queries the state of the jasosn read buffer to see if the most recent call produced an error
+   * 
+   * @return true on error found
+   * @return false no error
+   */
   bool unauthorizedResponse();
 
   /**

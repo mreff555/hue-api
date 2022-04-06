@@ -4,9 +4,6 @@
 #include "syncManager.h"
 #include "console.h"
 
-//DEBUG
-#include "timeUtil.h"
-
 #include <thread>
 #include <memory>
 #include <iostream>
@@ -39,7 +36,7 @@ int main()
    * @brief Handles the calls to the API, and some initialization procedures
    * 
    */
-  auto commandWrapper = std::make_shared<Command>(configuration);
+  auto command = std::make_shared<Command>(configuration);
 
   /**
    * @brief A memory database reflecting hue capabilities
@@ -51,7 +48,8 @@ int main()
    * @brief Responsible for the state management of all devices
    * 
    */
-  auto syncManager = std::make_shared<SyncManager>(commandWrapper, deviceData);
+  auto syncManager = std::make_shared<SyncManager>(
+    command, deviceData);
 
   /**
    * @brief A semi-graphical management console using notcurses

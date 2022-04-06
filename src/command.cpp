@@ -121,7 +121,7 @@ bool Command::setLightColorXY(const unsigned short _lightId, const float _x, flo
         Hue::STATE_XY,
         ss.str());
 
-      // returnValue = true;  
+    returnValue = true;  
   }
   return returnValue;
 }
@@ -152,8 +152,6 @@ bool Command::setFieldAndSend(
 
 bool Command::unauthorizedResponse()
 {
-  // TODO: This only makes sense when following a statemnt which attempted something requiring elevated
-  // access.  Either the functionality needs to be expanded or it needs to be used differently.
   bool result = false;
   boost::optional<std::string> s = jsonReadBuffer.get_optional<std::string>(".error.description");
   if(s && s.get() == "unauthorized user")
@@ -410,7 +408,7 @@ void Command::put(const std::string url, const std::string body)
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_easy_setopt(curl, CURLOPT_FTP_SKIP_PASV_IP, 1L);
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
-    
+
     ret = curl_easy_perform(curl);
 
     curl_easy_cleanup(curl);
