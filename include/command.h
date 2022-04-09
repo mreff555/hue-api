@@ -70,7 +70,7 @@ class Command
   bool setLightColorXY(const unsigned short _lightId, const float _x, float _y);
 
   /**
-   * @brief if the "deviceRefreshThreshold" has been exceeded, device data will be refreshed
+   * @brief if the "deviceRefreshThreshold" has been exceeded, device data will be refreshed.
    * 
    * @param device id
    * @return true on success
@@ -78,17 +78,26 @@ class Command
   bool refreshDataFromDevice(const unsigned short);
 
   /**
-   * @brief Set the Field And Send object
+   * @brief Constructs the PUT statement to send a command.
    * 
-   * @return true 
-   * @return false 
+   * @todo This should be private, however, do to the way I designed this, I'm finding
+   * this rather difficult to accomplish.  Do later
+   * @param _ip IP address of the HUE hub
+   * @param _key user access key
+   * @param _id device id [0 - 63]
+   * @param _hue field Field to be set
+   * @param _value the stringified value to be set
    */
-  bool setFieldAndSend(
+  void setFieldAndSend(
     const std::string, 
     const std::string, 
     const unsigned int, 
     const Hue::HueFieldEnum, 
     std::string);
+
+  std::string getHubIpAddress() const;
+
+  std::string getAccessKey() const;
 
 private:
   /**

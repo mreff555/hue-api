@@ -7,8 +7,12 @@
 #include <memory>
 #include <sstream>
 
-// extern std::map<Hue::HueFields, std::string> FieldMap;
-
+/**
+ * @brief The device container provides getters and setters for a
+ * device as well as time stamping, identification, and description.
+ * @author Dan Feerst
+ * 
+ */
 class DeviceContainer
 {
     public:

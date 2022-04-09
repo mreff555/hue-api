@@ -27,19 +27,6 @@ Command::~Command()
   curl_global_cleanup();
 }
 
-bool Command::refreshDataFromDevice(const unsigned short id)
-{
-  bool success = false;
-  if((Utility::currentTimeInMilliseconds() - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
-  {
-    if(getDeviceData(id).find("Error") != std::string::npos)
-    {
-      success = true;
-    }
-  }
-  return success;
-}
-
 void Command::setLightOn(const unsigned short _lightId, bool _on)
 {
   std::string outboundValue =  _on ? std::string("true") : std::string("false");
@@ -126,17 +113,26 @@ bool Command::setLightColorXY(const unsigned short _lightId, const float _x, flo
   return returnValue;
 }
 
-/* PRIVATE */
+bool Command::refreshDataFromDevice(const unsigned short id)
+{
+  bool success = false;
+  if((Utility::currentTimeInMilliseconds() - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
+  {
+    if(getDeviceData(id).find("Error") != std::string::npos)
+    {
+      success = true;
+    }
+  }
+  return success;
+}
 
-bool Command::setFieldAndSend(
+void Command::setFieldAndSend(
     const std::string _ip, 
     const std::string _key,
     const unsigned int _id,
     const Hue::HueFieldEnum _hueField, 
     std::string _value)
 {
-    bool success = false;
-
     std::string category = deviceContainer[_id].getCategoryStringFromHueEnum(_hueField);
     std::string body = deviceContainer[_id].getBodyStringFromHueEnum(_hueField, _value);
     std::stringstream ss;
@@ -146,9 +142,19 @@ bool Command::setFieldAndSend(
     std::cout << "Command::setFieldAndSend DEBUG - url: " << ss.str() << "\tBody: " << body << "\n";
     
     put(ss.str(), body);
-
-    return success;
 }
+
+std::string Command::getHubIpAddress() const
+{
+  return mCfg->getInternalIpAddress();
+}
+
+std::string Command::getAccessKey() const
+{
+  return mCfg->getUsername();
+}
+
+/* PRIVATE */
 
 bool Command::unauthorizedResponse()
 {

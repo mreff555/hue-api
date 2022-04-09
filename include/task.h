@@ -16,8 +16,12 @@ class Task : public DeviceContainer
 
     unsigned short getId() const;
 
+    Hue::HueFieldEnum getActionType() const;
+
+    std::string getActionValue() const;
+
     private:
-    const Hue::HueFieldEnum typeEnum;
+    const Hue::HueFieldEnum actionTypeEnum;
 
     const unsigned short id;
 

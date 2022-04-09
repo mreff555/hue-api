@@ -29,17 +29,23 @@ void SyncManager::runEventLoop(bool &terminate)
         }
 
         // Perform scheduled tasks
+        // TODO: I can forsee to really big problems with this for-loop
+        // TODO: as is.  First, I'm going to need a mutex, or something
+        // TODO: similar to prevent adding elements to the vector while
+        // TODO: tasks are being executed.  Either that or put the addition
+        // TODO: mechanism within the for loop.  The other problem is that
+        // TODO: at some point I am going to have to limit the number of
+        // TODO: limit the actions performed before cycling.
         for(auto task : taskVector)
         {
-            auto taskId = task.getId();
-            command->
-            //auto data = command->deviceContainer[taskId].getDataBuffer();
+            command->setFieldAndSend(
+                command->getHubIpAddress(),
+                command->getAccessKey(),
+                task.getId(),
+                task.getActionType(),
+                task.getActionValue());
         }
-
-        // // DEBUG
-        // std::cout << Utility::currentTime()
-        //     << " - " << command->deviceContainer[lightnum].getName()
-        //     << " - Status: " << command->deviceContainer[lightnum].getData().state.on << "\n";
+        taskVector.clear();
 
         Utility::sleepMilliseconds(interval);
     }

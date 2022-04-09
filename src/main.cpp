@@ -1,3 +1,15 @@
+/**
+ * @file main.cpp
+ * @author Dan Feerst (feerstd@gmail.com)
+ * @brief hue_server tracks the state of all lights on a given hub.
+ * It can set values, and perform sequences of events
+ * @version 0.1
+ * @date 2022-04-09
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include "config.h"
 #include "command.h"
 #include "device.h"
@@ -11,13 +23,23 @@
 
 /* Terminate processing flag */
 bool terminate = false;
-  
+
+/**
+ * @brief Callback for signal traps used to terminate the application gracefully
+ * 
+ * @param signum signal value 
+ */
 void sigHandler(int signum)
 {
   terminate = true;
   printf("Terminated on sig %d\n", signum); 
 }
 
+/**
+ * @brief This is the entry point for the hue_server
+ * 
+ * @return Always returns zer0
+ */
 int main()
 {
   /* Signal traps for various inturrupts       */

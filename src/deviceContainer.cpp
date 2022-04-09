@@ -41,7 +41,10 @@ fieldMap({
     {SWVERSION, {"", "swversion", ""}},
     {SWCONFIGID, {"", "swconfigid", ""}},
     {PRODUCTID, {"", "productid", ""}},
-}) {}
+})
+{
+    setTimeStamp();
+}
 
 std::string DeviceContainer::getName() const
 {
