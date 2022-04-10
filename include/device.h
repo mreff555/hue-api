@@ -1,3 +1,15 @@
+/**
+ * @file device.h
+ * @author Dan Feerst (feerstd@gmail.com.com)
+ * @brief The device container follows the format of the data
+ * recieved from the hub API.
+ * 
+ * @version 0.1
+ * @date 2022-04-09
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef DEVICE_H
 #define DEVICE_H
 

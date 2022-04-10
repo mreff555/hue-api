@@ -79,24 +79,13 @@ int main()
    */
   // auto tuiManagementConsole = std::make_shared<Console>(); 
 
-  // DEBUG
-
-  // commandWrapper->setLightOn(6);
-  // commandWrapper->setLightBrightness(6, 30);
-  // for(auto i = 0; i < deviceArraySize; i += 650)
-  // {
-  //   commandWrapper->setLightHue(6, i);
-  //   Utility::sleepMilliseconds(100);
-  // }
-
-  // commandWrapper->setLightOn(6);
-  // commandWrapper->setLightBrightness(6,250);
-  // commandWrapper->setLightColorXY(6,0.3,0.79);
-
-  // end DEBUG
-
   std::thread syncManagerThread(&SyncManager::runEventLoop, syncManager, std::ref(terminate));
   // std::thread tuiManagementConsoleThread(&Console::runEventLoop, tuiManagementConsole, std::ref(terminate));
+
+  // debug
+  syncManager->addTask({Hue::STATE_ON, 6, "false"});
+  // syncManager->addTask({Hue::STATE_BRI, 6, "1"});
+  // syncManager->addTask({Hue::STATE_HUE, 6, "1500"});
 
   // tuiManagementConsoleThread.join();
   syncManagerThread.join();

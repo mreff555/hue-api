@@ -8,9 +8,9 @@ DeviceContainer::DeviceContainer()
 : name("N/A"), description("N/A"), id(-1), timeStamp(Utility::currentTimeInMilliseconds()), instantiationTime(timeStamp), 
 fieldMap({
     {STATE_ON, {"state", "on", "false"}},        
-    {STATE_BRI, {"state", "bri", "false"}},
-    {STATE_HUE, {"state", "hue", "false"}},
-    {STATE_SAT, {"state", "sat", "false"}},
+    {STATE_BRI, {"state", "bri", "0"}},
+    {STATE_HUE, {"state", "hue", "0"}},
+    {STATE_SAT, {"state", "sat", "0"}},
     {STATE_XY, {"state", "xy", "[0,0]"}},
     {STATE_EFFECT, {"state", "effect", "false"}},
     {STATE_CT, {"state", "ct", "false"}},

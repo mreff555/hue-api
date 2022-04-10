@@ -8,8 +8,6 @@
 class Task : public DeviceContainer
 {
     public:
-    // Task(const unsigned short);
-
     Task(const Hue::HueFieldEnum, const unsigned short, const std::string);
 
     virtual ~Task() = default;
@@ -26,8 +24,6 @@ class Task : public DeviceContainer
     const unsigned short id;
 
     const std::string value;
-
-    void* field;
 };
 
 #endif  /* TASK_H */

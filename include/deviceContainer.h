@@ -1,3 +1,15 @@
+/**
+ * @file deviceContainer.h
+ * @author Dan Feerst (feerstd@gmail.com)
+ * @brief The device container provides getters and setters for a
+ * device as well as time stamping, identification, and description.
+ * 
+ * @version 0.1
+ * @date 2022-04-09
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef DEVICE_CONTAINER_H
 #define DEVICE_CONTAINER_H
 
@@ -7,12 +19,6 @@
 #include <memory>
 #include <sstream>
 
-/**
- * @brief The device container provides getters and setters for a
- * device as well as time stamping, identification, and description.
- * @author Dan Feerst
- * 
- */
 class DeviceContainer
 {
     public:

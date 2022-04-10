@@ -6,10 +6,7 @@ Task::Task(
     const std::string _value)
 : actionTypeEnum(_actionTypeEnum), 
 id(_id), 
-value(_value)
-{
-    auto data = getDataBuffer();    
-}
+value(_value) {}
 
 unsigned short Task::getId() const
 {

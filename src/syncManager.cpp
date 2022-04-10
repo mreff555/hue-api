@@ -6,20 +6,10 @@ SyncManager::SyncManager(
     std::shared_ptr<Command>(_command), 
     std::shared_ptr<Hue::Device>(_deviceState)) 
 : command(_command), 
-deviceState(_deviceState)
-{
-    // Debug
-    Task tsk(Hue::STATE_ON, 6, "true");
-    taskVector.push_back(tsk);
-}
+deviceState(_deviceState) {}
 
 void SyncManager::runEventLoop(bool &terminate)
 {
-
-    //Debug
-    // constexpr unsigned short lightnum = 6;
-    // command->deviceContainer[lightnum].setName("Living Room 1");
-
     while(!terminate)
     {
         // refresh device data
@@ -28,27 +18,26 @@ void SyncManager::runEventLoop(bool &terminate)
             command->refreshDataFromDevice(i);
         }
 
-        // Perform scheduled tasks
-        // TODO: I can forsee to really big problems with this for-loop
-        // TODO: as is.  First, I'm going to need a mutex, or something
-        // TODO: similar to prevent adding elements to the vector while
-        // TODO: tasks are being executed.  Either that or put the addition
-        // TODO: mechanism within the for loop.  The other problem is that
-        // TODO: at some point I am going to have to limit the number of
-        // TODO: limit the actions performed before cycling.
-        for(auto task : taskVector)
+        // Perform scheduled tasks until the queue is empty
+        while(taskQueue.size())
         {
             command->setFieldAndSend(
                 command->getHubIpAddress(),
                 command->getAccessKey(),
-                task.getId(),
-                task.getActionType(),
-                task.getActionValue());
+                taskQueue.front().getId(),
+                taskQueue.front().getActionType(),
+                taskQueue.front().getActionValue());
+                taskQueue.pop();
         }
-        taskVector.clear();
+
+        // Add new tasks in holding to the queue
+        taskQueue.swap(tempTaskQueue);
 
         Utility::sleepMilliseconds(interval);
     }
 }
 
-
+void SyncManager::addTask(const Task &_task)
+{
+    tempTaskQueue.push(_task);
+}
