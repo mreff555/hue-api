@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Sat Apr  9 15:21:29 2022
+# Make data base, printed on Tue Apr 12 19:35:57 2022
 
 # Variables
 
@@ -17,9 +16,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # makefile (from `Makefile', line 24)
-OBJ := obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o
+OBJ := obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/hue_server_interface.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o
 # makefile (from `Makefile', line 23)
-SRC :=  src/command.cpp src/config.cpp src/console.cpp src/device.cpp src/deviceContainer.cpp src/main.cpp src/stringUtil.cpp src/syncManager.cpp src/task.cpp src/timeUtil.cpp
+SRC :=  src/command.cpp src/config.cpp src/console.cpp src/device.cpp src/deviceContainer.cpp src/hue_server_interface.cpp src/main.cpp src/stringUtil.cpp src/syncManager.cpp src/task.cpp src/timeUtil.cpp
 # environment
 VSCODE_LOG_NATIVE = false
 # makefile (from `Makefile', line 19)
@@ -45,7 +44,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/vscode-ipc-2d898030-854a-464a-af2a-7c42f3803e89.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/vscode-ipc-6fb704a1-109a-44bb-bc75-c12df9d0eea6.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -73,7 +72,7 @@ PWD = /Users/mreff555/src/hue-api
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # makefile (from `Makefile', line 30)
-CLEAN_LIST := bin/light-thing debug/light-thing obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
+CLEAN_LIST := bin/light-thing debug/light-thing obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/hue_server_interface.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/hue_server_interface.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -81,7 +80,7 @@ HOME = /Users/mreff555
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/e18005f0f1b33c29e81d732535d8c0e47cafb0b5
+VSCODE_CODE_CACHE_PATH = /Users/mreff555/Library/Application Support/Code/CachedData/8dfae7a5cd50421d10cd99cb873990460525a898
 # environment
 LOGNAME = mreff555
 # environment
@@ -125,7 +124,7 @@ TMPDIR = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.66.0-main.sock
+VSCODE_IPC_HOOK = /Users/mreff555/Library/Application Support/Code/1.66.1-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -161,13 +160,13 @@ SUFFIXES :=
 # environment
 MAKELEVEL := 0
 # makefile (from `Makefile', line 25)
-OBJ_DEBUG := debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
+OBJ_DEBUG := debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/hue_server_interface.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
 # environment
 LANG = C
 # environment
-VSCODE_PID = 52668
+VSCODE_PID = 68527
 # makefile (from `Makefile', line 28)
-DISTCLEAN_LIST := obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
+DISTCLEAN_LIST := obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/hue_server_interface.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/hue_server_interface.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
 # variable set hash-table stats:
 # Load=78/1024=8%, Rehash=0, Collisions=4/132=3%
 
@@ -178,9 +177,9 @@ DISTCLEAN_LIST := obj/command.o obj/config.o obj/console.o obj/device.o obj/devi
 # Directories
 
 # . (device 16777220, inode 8093638): 17 files, no impossibilities.
-# src (device 16777220, inode 8093709): 12 files, no impossibilities.
+# src (device 16777220, inode 8093709): 23 files, no impossibilities.
 
-# 29 files, no impossibilities in 2 directories.
+# 40 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -201,7 +200,6 @@ debug/%.o: src/%.c*
 # Not a target:
 debug/main.o:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -211,7 +209,7 @@ debug/task.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-bin/light-thing: obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o
+bin/light-thing: obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/hue_server_interface.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
@@ -255,7 +253,8 @@ obj/timeUtil.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-debug/light-thing: debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
+ 
+debug/light-thing: debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/hue_server_interface.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -309,11 +308,17 @@ debug: debug/light-thing
 # Not a target:
 src/command.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-05 19:05:15
+#  Last modified 2022-04-09 22:58:59
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+debug/hue_server_interface.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 obj/syncManager.o:
@@ -346,6 +351,12 @@ default: makedir all
 
 # Not a target:
 obj/task.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/hue_server_interface.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -446,7 +457,7 @@ debug/timeUtil.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=33/1024=3%, Rehash=0, Collisions=4/82=5%
+# Load=35/1024=3%, Rehash=0, Collisions=4/86=5%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -458,6 +469,6 @@ debug/timeUtil.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Apr  9 15:21:29 2022
+# Finished Make data base on Tue Apr 12 19:35:57 2022
 
  

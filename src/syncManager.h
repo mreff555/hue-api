@@ -15,12 +15,14 @@
 
 #include "config.h"
 #include "command.h"
-#include "device.h"
+#include "deviceContainer.h"
 #include "timeUtil.h"
 #include "task.h"
 #include <queue>
 
 constexpr Utility::milliseconds interval = 250;
+
+class Task;
 
 class SyncManager
 {
@@ -43,6 +45,11 @@ class SyncManager
      */
     void runEventLoop(bool &terminate);
 
+    /**
+     * @brief Used to add tasks to the event queue
+     * 
+     * @param _task reference to a Task class
+     */
     void addTask(const Task &_task);
 
     private:

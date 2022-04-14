@@ -1,6 +1,6 @@
 #include "syncManager.h"
 #include "timeUtil.h"
-#include <iostream>
+//#include <iostream>
 
 SyncManager::SyncManager(
     std::shared_ptr<Command>(_command), 

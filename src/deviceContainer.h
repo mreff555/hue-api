@@ -19,12 +19,16 @@
 #include <memory>
 #include <sstream>
 
+class Task;
+
 class DeviceContainer
 {
     public:
     DeviceContainer();
 
     virtual ~DeviceContainer() = default;
+
+    bool validate(const Task&);
 
     std::string getName() const;
 

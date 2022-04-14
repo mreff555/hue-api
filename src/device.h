@@ -14,6 +14,7 @@
 #define DEVICE_H
 
 #include <string>
+#include <vector>
 #include <map>
 
 namespace Hue
@@ -200,11 +201,35 @@ namespace Hue
         PRODUCTID
     };
 
+    enum HueFieldDataType
+    {
+        CHAR,
+        BOOL,
+        INT32,
+        FLOAT,
+        STRING,
+        VOID
+    };
+
+    /**
+     * @brief Contains REST data for a given command as well as
+     * validation information to confirm the input value is valid
+     * in the case of strings, they are assumed to be null terminated
+     * and min and max refer to length.  The vector of strings is used
+     * in cases where the type is a string and the variance of commands
+     * is finite.
+     * 
+     */
     struct FieldStruct
     {
         std::string category;
         std::string fieldName;
         std::string body;
+        HueFieldDataType hueFieldDataType;
+        bool canBeEnpty;
+        int min;
+        int max;
+        std::vector<std::string> strings;
     };
 
     typedef std::map<HueFieldEnum, FieldStruct> FieldMap;

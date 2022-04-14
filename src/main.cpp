@@ -14,6 +14,7 @@
 #include "command.h"
 #include "device.h"
 #include "syncManager.h"
+#include "hue_server_interface.h"
 #include "console.h"
 
 #include <thread>
@@ -73,6 +74,9 @@ int main()
   auto syncManager = std::make_shared<SyncManager>(
     command, deviceData);
 
+  auto hueServerInterface = std::make_shared<HueServerInterface>(
+    syncManager);
+
   /**
    * @brief A semi-graphical management console using notcurses
    * 
@@ -83,7 +87,7 @@ int main()
   // std::thread tuiManagementConsoleThread(&Console::runEventLoop, tuiManagementConsole, std::ref(terminate));
 
   // debug
-  syncManager->addTask({Hue::STATE_ON, 6, "false"});
+  // syncManager->addTask({Hue::STATE_ON, 6, "false"});
   // syncManager->addTask({Hue::STATE_BRI, 6, "1"});
   // syncManager->addTask({Hue::STATE_HUE, 6, "1500"});
 
