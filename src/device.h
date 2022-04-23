@@ -1,8 +1,8 @@
 /**
  * @file device.h
  * @author Dan Feerst (feerstd@gmail.com.com)
- * @brief The device container follows the format of the data
- * recieved from the hub API.
+ * @brief The device class is the c representaion of the
+ * json output recieved from the hub API.
  * 
  * @version 0.1
  * @date 2022-04-09

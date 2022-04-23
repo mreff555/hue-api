@@ -2,7 +2,7 @@
  * @file deviceContainer.h
  * @author Dan Feerst (feerstd@gmail.com)
  * @brief The device container provides getters and setters for a
- * device as well as time stamping, identification, and description.
+ * device as well as time stamping, identification, and  external description.
  * 
  * @version 0.1
  * @date 2022-04-09

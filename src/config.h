@@ -1,3 +1,13 @@
+/**
+ * @file config.h
+ * @author your name (feerstd@gmail.com)
+ * @brief the config class serves as a simple json reader/writer for a given config file
+ * @version 0.1
+ * @date 2022-04-22
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef CONFIG_H
 #define CONFIG_H
 

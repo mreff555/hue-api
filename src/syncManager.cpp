@@ -1,6 +1,15 @@
+/**
+ * @file syncManager.cpp
+ * @author your name (feerstd@gmail.com)
+ * @brief The purpose of syncManager is to add tasks to the task list for the hue-api.
+ * @version 0.1
+ * @date 2022-04-22
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include "syncManager.h"
 #include "timeUtil.h"
-//#include <iostream>
 
 SyncManager::SyncManager(
     std::shared_ptr<Command>(_command), 
@@ -19,11 +28,13 @@ void SyncManager::runEventLoop(bool &terminate)
         }
 
         // Perform scheduled tasks until the queue is empty
+        std::string ip = command->getHubIpAddress();
+        std::string key = command->getAccessKey();
         while(taskQueue.size())
         {
             command->setFieldAndSend(
-                command->getHubIpAddress(),
-                command->getAccessKey(),
+                ip,
+                key,
                 taskQueue.front().getId(),
                 taskQueue.front().getActionType(),
                 taskQueue.front().getActionValue());
