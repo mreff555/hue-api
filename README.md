@@ -12,7 +12,7 @@ for hue products, with some possible added functionality.  Below are some of the
 
   - [X] Get and Post and Put methods implemented
 
-  - [X] Auto-connect, hub IP retrieval and authentication (Testing in progress)
+  - [X] Auto-connect, hub IP retrieval and authentication
 
   - [X] Local name and descriptions for lights.
 

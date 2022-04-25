@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Fri Apr 22 22:18:13 2022
+# Make data base, printed on Mon Apr 25 19:27:02 2022
 
 # Variables
 
@@ -18,6 +18,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 ?F = $(notdir $?)
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
+ 
 # makefile (from `Makefile', line 24)
 OBJ := obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/hue_server_interface.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o
 # makefile (from `Makefile', line 23)
@@ -47,7 +48,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/vscode-ipc-61bb8b9c-a453-4449-ba36-d25bb81a1298.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/sh/g_44cq854lsb9r49w2616kh40000gn/T/vscode-ipc-96284601-e1b8-4ad7-a8fe-7a38395c32da.sock
 # environment
 VSCODE_CWD = /Users/mreff555/src/hue-api/build
 # environment
@@ -64,7 +65,6 @@ ELECTRON_RUN_AS_NODE = 1
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # makefile (from `Makefile', line 6)
 CCOBJFLAGS := -lcurl -std=c++11 -c
- 
 # environment
 SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ETOqYoP8PB/Listeners
 # automatic
@@ -118,7 +118,7 @@ USER = mreff555
 # makefile (from `Makefile', line 4)
 CCFLAGS := -lcurl -std=c++11
 # environment
-TERM_SESSION_ID = 29C13B00-A6F6-4222-B418-B24233ECDF5E
+TERM_SESSION_ID = 4B6CA8F2-B55C-487E-9C65-C706412ACFAF
 # makefile (from `Makefile', line 10)
 OBJ_PATH := obj
 # automatic
@@ -144,7 +144,7 @@ MFLAGS = -Rrqp
 # environment
 TERM_PROGRAM_VERSION = 443
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.21846157.21846163.1063C966-AE4C-4BBA-8024-52E96ED57CF2
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.21846157.21846163.9B0FBCAC-3656-4E30-A019-A976DE677081
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -180,6 +180,7 @@ TERM = xterm-256color
 # environment
 VSCODE_PID = 10009
 # makefile (from `Makefile', line 28)
+ 
 DISTCLEAN_LIST := obj/command.o obj/config.o obj/console.o obj/device.o obj/deviceContainer.o obj/hue_server_interface.o obj/main.o obj/stringUtil.o obj/syncManager.o obj/task.o obj/timeUtil.o debug/command.o debug/config.o debug/console.o debug/device.o debug/deviceContainer.o debug/hue_server_interface.o debug/main.o debug/stringUtil.o debug/syncManager.o debug/task.o debug/timeUtil.o
 # variable set hash-table stats:
 # Load=84/1024=8%, Rehash=0, Collisions=4/138=3%
@@ -342,7 +343,6 @@ obj/syncManager.o:
 # Not a target:
 debug/device.o:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -483,6 +483,7 @@ debug/timeUtil.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Apr 22 22:18:13 2022
+ 
+# Finished Make data base on Mon Apr 25 19:27:02 2022
 
  
