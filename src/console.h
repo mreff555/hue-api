@@ -8,6 +8,10 @@ class Console
 
     virtual ~Console() = default;
 
+    /**
+     * @brief Starts the event looop
+     * @param boolean terminate value.  Call should exist within one iteration of loop.
+     */
     void runEventLoop(bool&);
 
     private:

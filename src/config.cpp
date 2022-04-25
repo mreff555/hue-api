@@ -22,6 +22,7 @@ void Config::read()
 {
   this->read(DEFAULT_CONFIG_FILE);
 }
+
 /*
 * @brief read the specified JSON file and attempt to populate relavant field.
 * @param JSON config file
@@ -35,9 +36,7 @@ void Config::read(std::string filename)
     boost::property_tree::read_json(filename, root);
     this->id = root.get<std::string>("id");
     this->internalIpAddress = root.get<std::string>("internalipaddress");
-    this->username = root.get<std::string>("username");
-    this->password = root.get<std::string>("password");
-    this->url = root.get<std::string>("url");
+    this->key = root.get<std::string>("key");
     this->timestamp = root.get<uint64_t>("timestamp");
   }
   catch(std::exception &e)
@@ -65,9 +64,7 @@ void Config::write(std::string filename)
   boost::property_tree::ptree root;
   root.put("id", this->id);
   root.put("internalipaddress", this->internalIpAddress);
-  root.put("username", this->username);
-  root.put("password", this->password);
-  root.put("url", this->url);
+  root.put("key", this->key);
   std::fstream fs(filename, std::fstream::out);
   if(fs.is_open())
   {
@@ -109,34 +106,14 @@ void Config::setInternalIpAddress(const std::string _value)
   }
 }
 
-std::string Config::getUsername() const
+std::string Config::getKey() const
 {
-  return this->username;
+  return this->key;
 };
 
-void Config::setUsername(const std::string value)
+void Config::setKey(const std::string value)
 {
-  this->username = value;
-};
-
-std::string Config::getPassword() const
-{
-  return this->password;
-};
-
-void Config::setPassword(const std::string value)
-{
-  this->password = value;
-};
-
-std::string Config::getUrl() const
-{
-  return this->url;
-};
-
-void Config::setUrl(const std::string value)
-{
-  this->url = value;
+  this->key = value;
 };
 
 uint64_t Config::getTimestamp() const

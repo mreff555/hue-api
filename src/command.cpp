@@ -1,4 +1,5 @@
 #include "command.h"
+#include "stringUtil.h"
 #include <string>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -26,10 +27,137 @@ Command::~Command()
   curl_global_cleanup();
 }
 
+// void Command::setLightOn(const unsigned short _lightId, bool _on)
+// {
+//   std::string outboundValue =  _on ? std::string("true") : std::string("false");
+//   if(_lightId < deviceArraySize)
+//   {
+//     setFieldAndSend(
+//       mCfg->getInternalIpAddress(), 
+//       mCfg->getKey(), 
+//       _lightId, 
+//       Hue::STATE_ON,
+//       outboundValue);
+//   }
+// }
+
+// bool Command::setLightBrightness(const unsigned short _lightId, const unsigned short _value)
+// {
+//   bool returnValue = false;
+//   std::string outboundValue = (_value <= 254) ? std::to_string(_value) : "INVALID";
+//   if(outboundValue != "INVALID")
+//   {
+//       setFieldAndSend(
+//         mCfg->getInternalIpAddress(), 
+//         mCfg->getKey(), 
+//         _lightId, 
+//         Hue::STATE_BRI,
+//         outboundValue);
+//       returnValue = true;  
+//   }
+//   return returnValue;
+// }
+
+// bool Command::setLightHue(const unsigned short _lightId, const unsigned short _value)
+// {
+//   bool returnValue = false;
+//   std::string outboundValue = (_value <= 65535) ? std::to_string(_value) : "INVALID";
+//   if(outboundValue != "INVALID")
+//   {
+//       setFieldAndSend(
+//         mCfg->getInternalIpAddress(), 
+//         mCfg->getKey(), 
+//         _lightId, 
+//         Hue::STATE_HUE,
+//         outboundValue);
+//       returnValue = true;  
+//   }
+//   return returnValue;
+// }
+
+// bool Command::setLightSaturation(const unsigned short _lightId, const unsigned short _value)
+// {
+//   bool returnValue = false;
+//   std::string outboundValue = (_value <= 254) ? std::to_string(_value) : "INVALID";
+//   if(outboundValue != "INVALID")
+//   {
+//       setFieldAndSend(
+//         mCfg->getInternalIpAddress(), 
+//         mCfg->getKey(), 
+//         _lightId, 
+//         Hue::STATE_BRI,
+//         outboundValue);
+//       returnValue = true;  
+//   }
+//   return returnValue;
+// }
+
+// bool Command::setLightColorXY(const unsigned short _lightId, const float _x, float _y)
+// {
+//   bool returnValue = false;
+//   std::string outboundX = (_x <= 1) ? Utility::to_string_with_precision(_x, 4) : "INVALID";
+//   std::string outboundY = (_y <= 1) ? Utility::to_string_with_precision(_y, 4) : "INVALID";
+//   std::stringstream ss;
+//   ss << "["  << outboundX << "," << outboundY << "]";
+//   if((outboundX != "INVALID") && (outboundY != "INVALID"))
+//   {
+//       setFieldAndSend(
+//         mCfg->getInternalIpAddress(), 
+//         mCfg->getKey(), 
+//         _lightId, 
+//         Hue::STATE_XY,
+//         ss.str());
+
+//     returnValue = true;  
+//   }
+//   return returnValue;
+// }
+
+bool Command::refreshDataFromDevice(const unsigned short id)
+{
+  bool success = false;
+  if((Utility::currentTimeInMilliseconds() - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
+  {
+    if(getDeviceData(id).find("Error") == std::string::npos)
+    {
+      success = true;
+    }
+  }
+  return success;
+}
+
+void Command::setFieldAndSend(
+    const std::string _ip, 
+    const std::string _key,
+    const unsigned int _id,
+    const Hue::HueFieldEnum _hueField, 
+    std::string _value)
+{
+    std::string category = deviceContainer[_id].getCategoryStringFromHueEnum(_hueField);
+    std::string body = deviceContainer[_id].getBodyStringFromHueEnum(_hueField, _value);
+    std::stringstream ss;
+    ss << "http://" << _ip << "/api/" << _key << "/lights/" << std::to_string(_id) << "/" << category;
+    
+    // DEBUG
+    std::cout << "Command::setFieldAndSend DEBUG - url: " << ss.str() << "\tBody: " << body << "\n";
+    
+    put(ss.str(), body);
+}
+
+std::string Command::getHubIpAddress() const
+{
+  return mCfg->getInternalIpAddress();
+}
+
+std::string Command::getAccessKey() const
+{
+  return mCfg->getKey();
+}
+
+/* PRIVATE */
+
 bool Command::unauthorizedResponse()
 {
-  // TODO: This only makes sense when following a statemnt which attempted something requiring elevated
-  // access.  Either the functionality needs to be expanded or it needs to be used differently.
   bool result = false;
   boost::optional<std::string> s = jsonReadBuffer.get_optional<std::string>(".error.description");
   if(s && s.get() == "unauthorized user")
@@ -59,7 +187,7 @@ bool Command::findHubIp()
 bool Command::waitForButtonPress()
 {
   bool success = false;
-  if(mCfg->getUsername() == "")
+  if(mCfg->getKey() == "")
   {
     std::cout << "Waiting 30 seconds for button press...\n";
     std::string url = "http://" + mCfg->getInternalIpAddress() + "/api";
@@ -67,12 +195,12 @@ bool Command::waitForButtonPress()
     for(int i = 0; i < 60; ++i)
     {
       post(url, body);
-      boost::optional<std::string> username =
-        jsonReadBuffer.get_optional<std::string>(".success.username");
-      if(username)
+      boost::optional<std::string> key =
+        jsonReadBuffer.get_optional<std::string>(".success.key");
+      if(key)
       {
-        mCfg->setUsername(username.get());
-        std::cout << "success: " << mCfg->getUsername();
+        mCfg->setKey(key.get());
+        std::cout << "success: " << mCfg->getKey();
         success = true;
         break;
       }
@@ -93,7 +221,7 @@ bool Command::waitForButtonPress()
 bool Command::connect()
 {
   bool success = false;
-  if(mCfg->getInternalIpAddress() == "" || mCfg->getUsername() == "")
+  if(mCfg->getInternalIpAddress() == "" || mCfg->getKey() == "")
   {
     success = findHubIp();
   }
@@ -103,7 +231,7 @@ bool Command::connect()
   }
   if(success)
   {
-    if(mCfg->getUsername() == "")
+    if(mCfg->getKey() == "")
     {
       success = waitForButtonPress();
     }
@@ -124,7 +252,7 @@ std::string Command::getDeviceData(const unsigned short id)
 {
   std::string returnString;
   readBuffer.clear();
-  std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getUsername() + "/lights/" + std::to_string(id);
+  std::string url = mCfg->getInternalIpAddress() + "/api/" + mCfg->getKey() + "/lights/" + std::to_string(id);
   get(url);
   auto errorType = jsonReadBuffer.get_optional<int>(".error.type");
   if(errorType.is_initialized())
@@ -136,7 +264,9 @@ std::string Command::getDeviceData(const unsigned short id)
     returnString = readBuffer;
     
     auto xyVec = Command::as_vector<float>(jsonReadBuffer, "state.xy");
-    Hue::Xy xy(xyVec[0], xyVec[1]);
+    // Hue::Xy xy(xyVec[0], xyVec[1]);
+    float temp[2] = {xyVec[0], xyVec[1]};
+
 
     Hue::State state(
       jsonReadBuffer.get<bool>("state.on"),
@@ -144,7 +274,7 @@ std::string Command::getDeviceData(const unsigned short id)
       jsonReadBuffer.get<unsigned>("state.hue"),
       jsonReadBuffer.get<unsigned>("state.sat"),
       jsonReadBuffer.get<std::string>("state.effect"),
-      xy,
+      temp,
       jsonReadBuffer.get<unsigned>("state.ct"),
       jsonReadBuffer.get<std::string>("state.alert"),
       jsonReadBuffer.get<std::string>("state.colormode"),
@@ -220,42 +350,6 @@ std::string Command::getDeviceData(const unsigned short id)
   return returnString;
 }
 
-bool Command::refreshDataFromDevice(const unsigned short id)
-{
-  bool success = false;
-  if((Utility::currentTimeInMilliseconds() - deviceContainer[id].getTimeStamp()) > deviceRefreshThreshold)
-  {
-    if(getDeviceData(id).find("Error") != std::string::npos)
-    {
-      success = true;
-    }
-  }
-  return success;
-}
-
-bool Command::setFieldAndSend(
-    const std::string _ip, 
-    const std::string _key,
-    const unsigned int _id,
-    const Hue::HueFieldEnum _hueField, 
-    std::string _value)
-{
-    bool success = false;
-
-    std::string category = deviceContainer[_id].getCategoryStringFromHueEnum(_hueField);
-    std::string body = deviceContainer[_id].getBodyStringFromHueEnum(_hueField, _value);
-    std::stringstream ss;
-    ss << "http://" << _ip << "/api/" << _key << "/lights/" << std::to_string(_id) << "/" << category;
-    std::cout <<"test\n";
-    
-    // DEBUG
-    std::cout << "Command::setFieldAndSend DEBUG\t-\turl: " << ss.str() << "\tBody:\t" << body << "\n";
-    
-    put(ss.str(), body);
-
-    return success;
-}
-
 void Command::post(const std::string url, const std::string body)
 {
   curl = curl_easy_init();
@@ -301,11 +395,11 @@ void Command::get(const std::string url)
 
 void Command::put(const std::string url, const std::string body)
 {
-
-  CURLcode ret;
+  CURLcode result;
+  char errbuf[CURL_ERROR_SIZE];
   struct curl_slist *slist1;
   slist1 = NULL;
-  slist1 = curl_slist_append(slist1, "Content-Type: multipart/form-data;");
+  slist1 = curl_slist_append(slist1, "Content-Type: application/json;");
   curl = curl_easy_init();
   if(curl)
   {
@@ -313,7 +407,7 @@ void Command::put(const std::string url, const std::string body)
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t)12);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t)body.size());
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, slist1);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/7.79.1");
     curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 50L);
@@ -321,16 +415,27 @@ void Command::put(const std::string url, const std::string body)
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_easy_setopt(curl, CURLOPT_FTP_SKIP_PASV_IP, 1L);
     curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
+    curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf);
 
-    ret = curl_easy_perform(curl);
+    errbuf[0] = 0;
+    result = curl_easy_perform(curl);
+
+    if(result != CURLE_OK)
+    {
+      size_t len = strlen(errbuf);
+      fprintf(stderr, "\nlibcurl: (%d) ", res);
+      if(len)
+        fprintf(stderr, "%s%s", errbuf,
+          ((errbuf[len - 1] != '\n') ? "\n" : ""));
+       else
+        fprintf(stderr, "%s\n", curl_easy_strerror(res));
+    }
 
     curl_easy_cleanup(curl);
     curl = NULL;
     curl_slist_free_all(slist1);
     slist1 = NULL;
   }
-  curl_easy_cleanup(curl);
-  curl = nullptr;
   curl_slist_free_all(slist1);
   slist1 = NULL;
 }

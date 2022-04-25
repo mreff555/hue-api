@@ -1,3 +1,15 @@
+/**
+ * @file deviceContainer.h
+ * @author Dan Feerst (feerstd@gmail.com)
+ * @brief The device container provides getters and setters for a
+ * device as well as time stamping, identification, and  external description.
+ * 
+ * @version 0.1
+ * @date 2022-04-09
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef DEVICE_CONTAINER_H
 #define DEVICE_CONTAINER_H
 
@@ -7,7 +19,7 @@
 #include <memory>
 #include <sstream>
 
-// extern std::map<Hue::HueFields, std::string> FieldMap;
+class Task;
 
 class DeviceContainer
 {
@@ -15,6 +27,8 @@ class DeviceContainer
     DeviceContainer();
 
     virtual ~DeviceContainer() = default;
+
+    bool validate(const Task&);
 
     std::string getName() const;
 
@@ -45,8 +59,6 @@ class DeviceContainer
     std::string getBodyStringFromHueEnum(Hue::HueFieldEnum, std::string) const;
 
     protected:
-    template<typename valueT>
-    bool setDeviceField(Hue::HueFieldEnum, valueT);
 
     std::string name;
 

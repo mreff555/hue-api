@@ -12,23 +12,14 @@ for hue products, with some possible added functionality.  Below are some of the
 
   - [X] Get and Post and Put methods implemented
 
-  - [X] Auto-connect, hub IP retrieval and authentication (Testing in progress)
+  - [X] Auto-connect, hub IP retrieval and authentication
 
   - [X] Local name and descriptions for lights.
 
-  - [ ] Add validation checks for value ranges (https://devblogs.microsoft.com/oldnewthing/20151013-00/?p=91371)
-
-  - [ ] Fix multi-thread sig-trap bug.  All threads not terminating in a timely manner.
-  
-  - [ ] Re-factor simple names and give good descriptions
-
-  - [ ] Modify String Utility to detect floating point.
-
-  - [ ] Interface for command wrapper
+  - [PARTIAL] Add validation checks for value ranges (https://devblogs.microsoft.com/oldnewthing/20151013-00/?p=91371)
+    System put in place, but honestly I'm getting bored of this project.  HUE has release a new API to handle customer interests and I struggle with the overall usefullness of this program
 
   - [ ] ncurses debug console
-
-  - [ ] web api
 
   - [ ] doxygen
 
@@ -52,3 +43,5 @@ for hue products, with some possible added functionality.  Below are some of the
      button on the HUE hub when prompted. Once this is complete the key should be saved
      in the configuration file which by default will be saved unless the build directory
      is removed.
+
+  Yeah,  It doesn't do a whole lot unless you throw in debug code.  An ambitious person might make it compile to a dynamic library....  Maybe I'll get around to it.

@@ -1,15 +1,24 @@
 #include "task.h"
 
-Task::Task(const unsigned short _id) : id(_id) {} 
-
-
-Task::Task(const unsigned short _id, const Value _value, const Rate _rate)
-: id(_id), value(_value), rate(_rate)
-{
-    auto data = getDataBuffer();    
-}
+Task::Task(
+    const Hue::HueFieldEnum _actionTypeEnum, 
+    const unsigned short _id, 
+    const std::string _value)
+: actionTypeEnum(_actionTypeEnum), 
+id(_id), 
+value(_value) {}
 
 unsigned short Task::getId() const
 {
     return id;
+}
+
+Hue::HueFieldEnum Task::getActionType() const
+{
+    return actionTypeEnum;
+}
+
+std::string Task::getActionValue() const
+{
+    return value;
 }

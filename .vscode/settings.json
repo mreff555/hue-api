@@ -87,6 +87,9 @@
         "set": "cpp",
         "typeindex": "cpp",
         "unordered_set": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "csignal": "cpp",
+        "strstream": "cpp",
+        "cfenv": "cpp"
     }
 }

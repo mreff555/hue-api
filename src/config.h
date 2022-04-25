@@ -1,3 +1,13 @@
+/**
+ * @file config.h
+ * @author your name (feerstd@gmail.com)
+ * @brief the config class serves as a simple json reader/writer for a given config file
+ * @version 0.1
+ * @date 2022-04-22
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -21,22 +31,21 @@ class Config
   void read();
   
   /**
-   * @brief Reads specified config file into memory, replacing original contents
+   * @brief Reads specified config file into memory, replacing original contents.
    * @param N/A
    * Return N/A
    */
   void read(std::string);
 
   /**
-   * @brief 
-   * @param
-   * Return
+   * @brief Write to the default config file.
+   *
    */
   void write();
 
   /**
-   * @brief 
-   * @param
+   * @brief Write to the specified config file.
+   * @param filename Destination file
    * Return
    */
   void write(std::string);
@@ -74,14 +83,14 @@ class Config
    * @param
    * Return
    */
-  std::string getUsername() const;
+  std::string getKey() const;
 
   /**
    * @brief 
    * @param
    * Return
    */
-  void setUsername(const std::string);
+  void setKey(const std::string);
 
   /**
    * @brief 
@@ -131,11 +140,7 @@ class Config
 
   std::string internalIpAddress;
 
-  std::string username;
-
-  std::string password;
-
-  std::string url;
+  std::string key;
 
   uint64_t timestamp;
 
