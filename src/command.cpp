@@ -1,5 +1,5 @@
-#include "command.h"
-#include "stringUtil.h"
+#include <command.h>
+#include <util/stringUtil.h>
 #include <string>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>

@@ -13,8 +13,8 @@
 #ifndef DEVICE_CONTAINER_H
 #define DEVICE_CONTAINER_H
 
-#include "device.h"
-#include "timeUtil.h"
+#include <hue/device.h>
+#include <util/timeUtil.h>
 #include <string>
 #include <memory>
 #include <sstream>

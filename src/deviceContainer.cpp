@@ -1,12 +1,16 @@
 #include "deviceContainer.h"
-#include "stringUtil.h"
+#include <util/stringUtil.h>
 #include "task.h"
 #include <iostream>
 
 using namespace Hue;
 
 DeviceContainer::DeviceContainer() 
-: name("N/A"), description("N/A"), id(-1), timeStamp(Utility::currentTimeInMilliseconds()), instantiationTime(timeStamp), 
+: name("N/A"),
+description("N/A"),
+id(-1),
+timeStamp(Utility::currentTimeInMilliseconds()),
+instantiationTime(timeStamp),
 fieldMap({
     {STATE_ON,                              {"state", "on", "false", BOOL, false, false, true, {}}},        
     {STATE_BRI,                             {"state", "bri", "0", INT32, false, 1, 254, {}}},
@@ -55,7 +59,6 @@ bool DeviceContainer::validate(const Task &task)
     {
         case STATE_ON:
             
-
         break;
 
         case STATE_BRI:
@@ -133,7 +136,7 @@ std::string DeviceContainer::getFieldStringFromHueEnum(Hue::HueFieldEnum _field)
 
 std::string DeviceContainer::getBodyStringFromHueEnum(Hue::HueFieldEnum _field, std::string _value) const
 {
-    // TODO: Definately need more some error checking here.
+    // TODO: Need more some error checking here.
     std::stringstream bodyValue;
     if(_value != "true" 
         && _value != "false" 

@@ -16,7 +16,7 @@
 #include "config.h"
 #include "command.h"
 #include "deviceContainer.h"
-#include "timeUtil.h"
+#include <util/timeUtil.h>
 #include "task.h"
 #include <queue>
 

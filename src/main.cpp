@@ -12,7 +12,7 @@
 
 #include "config.h"
 #include "command.h"
-#include "device.h"
+#include <hue/device.h>
 #include "syncManager.h"
 #include "hue_server_interface.h"
 #include "console.h"
@@ -36,11 +36,6 @@ void sigHandler(int signum)
   printf("Terminated on sig %d\n", signum); 
 }
 
-/**
- * @brief This is the entry point for the hue_server
- * 
- * @return Always returns zer0
- */
 int main()
 {
   /* Signal traps for various inturrupts       */
@@ -49,38 +44,23 @@ int main()
   signal(SIGHUP, sigHandler);  /* On pty close */
   signal(SIGTERM, sigHandler); /* On term sig  */
 
-  /**
-   * @brief Loads and saves select information in JSON format
-   * 
-   */
+  // @brief Loads and saves select information in JSON format
   auto configuration = std::make_shared<Config>();
 
-  /**
-   * @brief Handles the calls to the API, and some initialization procedures
-   * 
-   */
+  // @brief Handles the calls to the API, and some initialization procedures
   auto command = std::make_shared<Command>(configuration);
 
-  /**
-   * @brief A memory database reflecting hue capabilities
-   * 
-   */
+  // @brief A memory database reflecting hue capabilities
   auto deviceData = std::make_shared<Hue::Device>();
 
-  /**
-   * @brief Responsible for the state management of all devices
-   * 
-   */
+  // @brief Responsible for the state management of all devices
   auto syncManager = std::make_shared<SyncManager>(
     command, deviceData);
 
   auto hueServerInterface = std::make_shared<HueServerInterface>(
     syncManager);
 
-  /**
-   * @brief A semi-graphical management console using notcurses
-   * 
-   */
+  // @brief A semi-graphical management console using notcurses
   // auto tuiManagementConsole = std::make_shared<Console>(); 
 
   std::thread syncManagerThread(&SyncManager::runEventLoop, syncManager, std::ref(terminate));

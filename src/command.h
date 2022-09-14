@@ -1,8 +1,8 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "config.h"
-#include "deviceContainer.h"
+#include <config.h>
+#include <deviceContainer.h>
 #include <string>
 #include <curl/curl.h>
 #include <boost/property_tree/ptree.hpp>

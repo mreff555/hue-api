@@ -1,4 +1,4 @@
-#include "device.h"
+#include <device.h>
 #include <iostream>
 
 Hue::State::State(bool _on, unsigned _bri, unsigned _hue, unsigned _sat,

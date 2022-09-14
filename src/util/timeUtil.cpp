@@ -8,7 +8,7 @@
 namespace Utility {
 
     /**
-     * @brief The number of millisecond since the epoc in ZULU time.
+     * @brief The number of millisecond since the epoch in ZULU time.
      *
      * @return millisecondSinceEpoch
      */
@@ -47,7 +47,8 @@ namespace Utility {
      */
     std::string formatMillisecondsSinceEpoch(millisecondSinceEpoch _time)
     {
-        boost::posix_time::ptime tmp = boost::posix_time::from_time_t(_time / 1000) + boost::posix_time::millisec(_time % 1000);
+        boost::posix_time::ptime tmp = boost::posix_time::from_time_t(
+            _time / 1000) + boost::posix_time::millisec(_time % 1000);
         std::string tmpS = boost::posix_time::to_iso_extended_string(tmp);
         return tmpS.substr(0, 23)
                 + ((tmpS.size() < 23) ? ".000" : "")

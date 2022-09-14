@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
-#include "syncManager.h"
-#include "timeUtil.h"
+#include <syncManager.h>
+#include <util/timeUtil.h>
 
 SyncManager::SyncManager(
     std::shared_ptr<Command>(_command), 
